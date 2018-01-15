@@ -3,7 +3,6 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Router } from 'react-router-dom';
 import { Provider } from 'mobx-react';
-import { AppContainer } from 'react-hot-loader';
 import { rehydrate, hotRehydrate } from 'rfx-core';
 
 import { isProduction } from './utils/constants';
@@ -21,19 +20,13 @@ const renderApp = Component => {
     const history = syncHistoryWithStore(browserHistory, routeStore);
 
     render(
-        <AppContainer>
-            <Router history={history}>
-                <Provider store={isProduction ? store : hotRehydrate()} routing={routeStore}>
-                    <App/>
-                </Provider>
-            </Router>
-        </AppContainer>,
+        <Router history={history}>
+            <Provider store={isProduction ? store : hotRehydrate()} routing={routeStore}>
+                <App/>
+            </Provider>
+        </Router>,
         document.getElementById('root')
     );
 };
 
 renderApp(App);
-
-if (module.hot) {
-    module.hot.accept(() => renderApp(App));
-}

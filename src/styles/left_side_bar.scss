@@ -25,8 +25,7 @@
         padding-left: 25px;
         padding-right: 25px;
 
-        &.account_name
-        {
+        &.account_name {
           border-color: $blue;
           font-weight: 600;
 
@@ -39,10 +38,13 @@
             }
           }
         }
+
+        a {
+          text-decoration: none;
+        }
       }
 
-      &.align_end
-      {
+      &.align_end {
         justify-content: flex-end;
       }
     }

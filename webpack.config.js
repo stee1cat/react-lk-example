@@ -9,9 +9,6 @@ module.exports = {
         extensions: ['.js', '.jsx']
     },
     entry: [
-        'react-hot-loader/patch',
-        'webpack-dev-server/client?http://0.0.0.0:1337',
-        'webpack/hot/only-dev-server',
         'babel-polyfill',
         'whatwg-fetch',
         './index.js'
