@@ -3,7 +3,7 @@ import { Route, Link } from 'react-router-dom';
 import DevTools from 'mobx-react-devtools';
 
 import Layout from './common/Layout';
-import MetersData from './MetersData';
+import MetersData from './Meters';
 import Profile from './Profile';
 import Login from './Login';
 

@@ -1,0 +1,18 @@
+{
+    "code": 0,
+    "error": null,
+    "data": {
+        "personalData": {
+            "fio": "ПОЯРКОВА Т.А.",
+            "uk": "ООО УК Код",
+            "ls": "1016001999",
+            "phone": "+7 (342) 2700014",
+            "email": "d.rodygin@mcom.su"
+        },
+        "myRoom": {
+            "address": "Сигаева 4, 80",
+            "area": 64.0,
+            "numberRegistered": 2
+        }
+    }
+}
