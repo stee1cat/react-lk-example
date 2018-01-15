@@ -1,0 +1,35 @@
+@import "variables";
+
+.colored_label{
+  display: inline-block;
+  vertical-align: middle;
+  text-transform: uppercase;
+  color: $white;
+  border-radius: 3px;
+  font-size: $font_size_10;
+  padding: 3px 8px;
+  border: 1px solid transparent;
+
+  &.info{
+    background-color: $blue;
+  }
+
+  &.warn{
+    background-color: $yellow;
+  }
+
+  &.error{
+    background-color: $red;
+  }
+
+  &.success{
+    background-color: $green;
+  }
+
+  &.tmp{
+    color: $font_color_light;
+    background-color: $filling_gray_light;
+    border: 1px dashed $filling_gray;
+    box-sizing: border-box;
+  }
+}

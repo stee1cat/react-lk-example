@@ -1,0 +1,32 @@
+@import "variables";
+
+.main_container{
+  min-width: 1170px;
+  width: 70%;
+  margin: 0 auto;
+  padding: 45px 15px;
+  box-sizing: border-box;
+
+  & > .headline{
+    margin-bottom: 45px;
+
+    & > .text{
+      display: inline-block;
+      font-size: $font_size_30;
+      font-weight: 600;
+      vertical-align: middle;
+      margin-right: 40px;
+    }
+
+    & > .sub_text{
+      display: inline-block;
+      vertical-align: middle;
+      color: $font_color_light;
+      font-size: $font_size_14;
+    }
+  }
+
+  & > .content{
+    width: 100%;
+  }
+}

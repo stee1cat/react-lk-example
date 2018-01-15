@@ -1,0 +1,53 @@
+@import "variables";
+
+.content_with_description{
+  padding: 25px 0;
+  width: 100%;
+
+  .cwd_description{
+    color: $font_color_light;
+    margin-bottom: 5px;
+  }
+  .cwd_content{
+    &.long_text{
+      line-height: 1.5;
+    }
+  }
+}
+
+.content_with_icon{
+  display: block;
+  padding: 25px 0;
+  width: 100%;
+  clear: both;
+  overflow: hidden;
+
+  &.no_padding{
+    padding: 0px;
+  }
+
+  .cwi_icon{
+    width: 20px;
+    height: 20px;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: top;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    @each $n in p_good, p_bad, p_info, message-good {
+      &.icon_#{$n} {
+        background-image: url('../images/20/#{$n}.png');
+      }
+    }
+
+  }
+
+  .cwi_content{
+    text-align: left;
+    margin-left: 16px;
+    display: inline-block;
+    width: 70%;
+  }
+}

@@ -2,8 +2,13 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
+    context: path.join(__dirname, 'src'),
+    resolve: {
+        extensions: ['.js', '.jsx']
+    },
     entry: {
         vendor: [
             'react',
@@ -12,12 +17,11 @@ module.exports = {
         ],
         app: [
             'babel-polyfill',
-            './src/index.js'
+            './index.js'
         ]
     },
     output: {
         path: path.join(__dirname, 'dist'),
-        publicPath: './',
         filename: 'assets/[name].[hash].js',
         chunkFilename: 'assets/[name].[chunkhash].js'
     },
@@ -27,68 +31,28 @@ module.exports = {
             {
                 test: /\.js$/,
                 include: path.join(__dirname, 'src'),
-                loader: 'babel-loader',
-                query: {
-                    presets: [
-                        [
-                            'es2015',
-                            {
-                                modules: false
-                            }
-                        ],
-                        'stage-0',
-                        'react'
-                    ],
-                    plugins: [
-                        'transform-async-to-generator',
-                        'transform-decorators-legacy'
-                    ]
-                }
+                loader: 'babel-loader'
             },
             {
-                test: /\.scss|css$/i,
+                test: /\.(png|jpg|jpeg|gif|svg)$/,
+                use: 'raw-loader'
+            },
+            {
+                test: /\.scss$/,
+                exclude: /node_modules/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: [
                         {
                             loader: 'css-loader',
-                            options: {sourceMap: true}
+                            options: {
+                                minimize: false,
+                                url: false
+                            }
                         },
-                        {
-                            loader: 'postcss-loader',
-                            options: {sourceMap: true}
-                        },
-                        {loader: 'resolve-url-loader'},
-                        {
-                            loader: 'sass-loader',
-                            options: {sourceMap: true}
-                        }
+                        'sass-loader'
                     ]
                 })
-            },
-            {
-                test: /\.(jpe?g|png|gif|svg)$/i,
-                use: [
-                    'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
-                    {
-                        loader: 'image-webpack-loader',
-                        query: {
-                            mozjpeg: {
-                                progressive: true
-                            },
-                            gifsicle: {
-                                interlaced: false
-                            },
-                            optipng: {
-                                optimizationLevel: 4
-                            },
-                            pngquant: {
-                                quality: '75-90',
-                                speed: 3
-                            }
-                        }
-                    }
-                ]
             },
             {
                 test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -96,7 +60,8 @@ module.exports = {
             },
             {
                 test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                use: 'file-loader'
+                use: 'file-loader',
+                exclude: /images/
             }
         ]
     },
@@ -106,7 +71,7 @@ module.exports = {
                 NODE_ENV: JSON.stringify('production')
             }
         }),
-        new webpack.NamedModulesPlugin(),
+        new ExtractTextPlugin('/assets/[name].[contenthash:8].css'),
         new webpack.optimize.OccurrenceOrderPlugin(true),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
@@ -123,10 +88,15 @@ module.exports = {
                 comments: false
             }
         }),
-        new ExtractTextPlugin('assets/styles.css'),
+        new CopyWebpackPlugin([
+            {
+                from: 'images',
+                to: 'images'
+            }
+        ]),
         new HtmlWebpackPlugin({
             hash: false,
-            template: './index.hbs'
+            template: '../index.hbs'
         })
     ]
 };

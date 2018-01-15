@@ -1,0 +1,192 @@
+@import "variables";
+
+.document_page {
+  width: 100%;
+
+  & > .content_block {
+    display: flex;
+    flex-direction: row;
+
+    & > .main {
+      flex-grow: 2;
+      flex-shrink: 0;
+      flex-basis: 0;
+      background-color: $white;
+      border-radius: 3px;
+      overflow: hidden;
+      align-self: baseline;
+
+      &.empty {
+        background-color: $white;
+        padding: 40px 0;
+        align-self: baseline;
+
+        .empty_list_icon {
+          width: 70px;
+          height: 70px;
+          margin: 0 auto;
+          background-size: contain;
+          background-position: center;
+          background-image: url('../images/70/list.png');
+          background-repeat: no-repeat;
+        }
+
+        .empty_list_text {
+          text-align: center;
+          margin: 16px auto 0 auto;
+          font-weight: 600;
+        }
+      }
+
+      & > .list {
+        width: 100%;
+
+        & > .element {
+          display: flex;
+          flex-direction: row;
+          background-color: $white;
+          align-items: center;
+          @extend .border_bottom_divider;
+
+          padding: 20px 28px;
+
+          &:last-child {
+            border-bottom: none;
+          }
+
+          &:hover {
+            background-color: $filling_gray_light;
+
+            & > .cell.datetime {
+              display: none;
+            }
+
+            & > .cell.buttons {
+              display: flex;
+              justify-content: space-around;
+            }
+
+          }
+
+          & > .cell {
+            flex-shrink: 0;
+            text-align: left;
+            font-size: $font_size_16;
+
+            &.icon {
+              width: 30px;
+              height: 30px;
+              background-size: contain;
+              background-position: center;
+              background-repeat: no-repeat;
+              flex-shrink: 0;
+              margin-right: 20px;
+
+              @each $n in document_doc,
+              document_img,
+              document_xls,
+              document_zip {
+                &.icon_#{$n} {
+                  background-image: url('../images/30/#{$n}.png');
+                }
+              }
+            }
+
+            &.text {
+              @extend .bold;
+              flex-grow: 1;
+            }
+
+            &.datetime, &.buttons {
+              width: 120px;
+              margin-left: 20px;
+              color: $font_color_light;
+              font-size: $font_size_14;
+              text-align: center;
+            }
+
+            &.buttons {
+              display: none;
+              height: 30px;
+
+              & > button {
+                width: 26px;
+                height: 100%;
+                min-width: 0;
+                padding: 0;
+                margin: 0;
+                display: inline-block;
+                border: none;
+                background-color: transparent;
+                background-size: 80%;
+                background-position: center;
+                background-repeat: no-repeat;
+
+                @each $n in show, remove, download {
+                  &.button_#{$n} {
+                    background-image: url('../images/30/#{$n}.png');
+                  }
+                }
+
+                &:hover {
+                  @each $n in show, remove, download {
+                    &.button_#{$n} {
+                      background-image: url('../images/30/#{$n}_color.png');
+                    }
+                  }
+                }
+              }
+            }
+
+          }
+        }
+      }
+    }
+
+    & > .files {
+      flex-grow: 1;
+      flex-shrink: 0;
+      flex-basis: 0;
+      border-radius: 3px 3px 0 0;
+      margin-left: 30px;
+      overflow: hidden;
+
+      & > .header {
+        background-color: $white;
+        font-weight: 600;
+        font-size: $font_size_16;
+        padding: 15px 28px;
+      }
+
+      & > .drop_area {
+        width: 100%;
+        background-color: $filling_gray_2;
+        padding-bottom: 50px;
+
+        & > .icon {
+          background-image: url('../images/70/upload.png');
+          background-position: center;
+          background-size: contain;
+          background-repeat: no-repeat;
+          height: 52px;
+          margin-top: 50px;
+        }
+
+        & > .description {
+          text-align: center;
+          width: 70%;
+          margin: 28px auto 15px auto;
+        }
+
+        & > .button {
+          button {
+            margin-left: auto;
+            margin-right: auto;
+          }
+        }
+      }
+
+    }
+
+  }
+}

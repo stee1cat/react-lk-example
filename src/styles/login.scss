@@ -1,0 +1,35 @@
+@import "variables";
+
+.login_screen_container {
+  display: flex;
+  min-width: 100vw;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+
+  & > .main {
+    background-color: $white;
+    border-radius: 3px;
+    padding: 28px;
+    width: 350px;
+
+    & > .header {
+      text-align: left;
+      font-size: $font_size_24;
+    }
+
+    & > .content_with_description {
+      padding: 0;
+      padding-top: 25px;
+    }
+
+    & > .border_bottom_divider {
+      margin-top: 15px;
+    }
+
+    & .popup {
+      width: 140%;
+      margin-left: -20%;
+    }
+  }
+}

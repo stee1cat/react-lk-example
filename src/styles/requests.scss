@@ -1,0 +1,113 @@
+@import "variables";
+
+.requests_page{
+  width: 100%;
+
+  .new_request_button_container{
+    width: 100%;
+    margin: 40px auto;
+  }
+
+  .requests_container{
+    width: 100%;
+    border-radius: 3px;
+
+    &.empty{
+      background-color: $white;
+      padding: 40px;
+
+      .empty_list_icon{
+        width: 70px;
+        height: 70px;
+        margin: 0 auto;
+        background-size: contain;
+        background-position: center;
+        background-image: url('../images/70/list.png');
+        background-repeat: no-repeat;
+      }
+
+      .empty_list_text{
+        text-align: center;
+        margin: 16px auto 0 auto;
+        font-weight: 600;
+      }
+    }
+
+    .requests_list{
+      width: 100%;
+
+      .rl_row.rl_header + .rl_row{
+        border-radius: 3px 3px 0 0;
+      }
+
+      .rl_row{
+        display: flex;
+        flex-direction: row;
+        background-color: $white;
+        align-items: center;
+
+        &:last-child{
+          border-radius: 0 0 3px 3px;
+        }
+
+        .rl_cell{
+          padding: 15px 28px;
+          flex-grow: 1;
+          flex-shrink: 0;
+          text-align: left;
+          flex-basis: 0;
+          font-size: $font_size_16;
+
+          &:nth-child(2){
+            flex-grow: 3;
+            font-weight: 600;
+          }
+
+          &:nth-child(3){
+            color: $font_color_light;
+          }
+        }
+
+        &.rl_header{
+          background-color: $filling_gray;
+          .rl_cell{
+            color: $font_color_light;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: $font_size_14;
+          }
+        }
+
+        &:not(.rl_header){
+          border-bottom: 1px solid $divider_gray;
+        }
+
+        &:not(.rl_header):hover{
+          background-color: $filling_gray_light;
+
+          .rl_request_name{
+            color: $blue;
+          }
+        }
+
+        &:last-child{
+          border-bottom: none;
+        }
+
+        .rl_request_name{
+          display: block;
+          font-weight: 600;
+          color: $font_color_dark;
+          font-size: $font_size_16;
+          margin-bottom: 10px;
+        }
+
+        .rl_request_datetime{
+          color: $font_color_light;
+          font-size: $font_size_14;
+        }
+      }
+    }
+  }
+
+}

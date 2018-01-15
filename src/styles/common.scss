@@ -1,0 +1,50 @@
+@import "variables";
+
+* {
+  //color: $font_color_dark;
+  font-size: $font_size_16;
+  font-family: 'Source Sans Pro', sans-serif;
+  box-sizing: border-box;
+}
+
+html, body{
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+html,body{
+  background-color: $filling_gray;
+}
+
+html{
+  min-height: 100vh;
+}
+
+sup {
+  font-size: $font_size_10;
+}
+
+.not_visible{
+  display: none !important;
+}
+
+.sub_container_relative{
+  position: relative;
+}
+
+.float_right{
+  float: right;
+}
+
+.float_left{
+  float: left;
+}
+
+.inlineblock{
+  display: inline-block;
+}
+
+span.text{
+
+}

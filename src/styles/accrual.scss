@@ -1,0 +1,267 @@
+@import "variables";
+
+.headline {
+  & > input[type='checkbox']:checked + .text > .trigger > .icon {
+    background-color: $filling_gray_dark;
+    background-image: url('../images/30/trigger_up.png');
+  }
+
+  & > input[type='checkbox']:not(:checked) + .text > .trigger > .years_container {
+    display: none;
+  }
+
+  & .trigger {
+    cursor: pointer;
+    color: $blue;
+    display: inline-block;
+    font-size: $font_size_30;
+    position: relative;
+
+    & > .year-text {
+      font-size: $font_size_30;
+    }
+
+    & > .years_container {
+      width: 150%;
+      position: absolute;
+      display: flex;
+      flex-wrap: wrap;
+      border-radius: 3px;
+      z-index: 999;
+      box-shadow: 0 3px 10px $filling_gray_dark;
+      padding: 15px 19px;
+      background-color: $white;
+      margin-left: -25%;
+
+      & > .year {
+        width: 32%;
+        border-radius: 3px;
+        color: $font_color_dark;
+        border: 1px solid transparent;
+        padding: 3px 5px;
+        text-align: center;
+        cursor: pointer;
+        margin-right: 1px;
+
+        &:not(:last-child) {
+          margin-right: 1px;
+        }
+
+        &.active {
+          border: 1px solid $blue;
+        }
+
+        &:hover:not(.active) {
+          border-color: $blue_light;
+        }
+
+      }
+  }
+
+  & .icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 3px;
+    display: inline-block;
+    vertical-align: middle;
+    background-size: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url('../images/30/trigger.png');
+  }
+
+  }
+}
+
+.accurals_page {
+  width: 100%;
+
+  & > .content_block {
+    overflow: hidden;
+
+    & > .accurals {
+
+      & > input[type='checkbox']:checked + .item .trigger {
+        background-image: url('../images/30/drop_down_reverse.png');
+      }
+
+      & > input[type='checkbox']:not(:checked) + .item .details_container {
+        display: none;
+      }
+
+      & > .item {
+        border-radius: 3px;
+        overflow: hidden;
+
+        & > .header {
+          display: flex;
+          flex-direction: row;
+          background-color: $white;
+          align-items: center;
+          border-bottom: 1px solid $divider_gray;
+
+          & > .month_name {
+            padding: 15px 28px;
+            text-align: left;
+            font-size: $font_size_18;
+            flex-grow: 1;
+          }
+          & > .history_toggler {
+            padding: 15px 28px;
+            display: flex;
+            flex-shrink: 0;
+            flex-basis: 0;
+            flex-direction: row;
+            justify-content: flex-end;
+
+            & > .text {
+              color: $font_color_light;
+              align-self: center;
+            }
+
+            & > .divider {
+              border-left: 1px solid $divider_gray;
+              margin: 0 15px;
+              height: 20px;
+              align-self: center;
+            }
+
+            & > .trigger {
+              width: 30px;
+              height: 30px;
+              background-size: contain;
+              background-position: center;
+              background-repeat: no-repeat;
+              background-image: url('../images/30/drop_down.png');
+              flex-shrink: 0;
+              cursor: pointer;
+            }
+          }
+        }
+
+        & > .accural_info {
+          display: flex;
+          flex-direction: row;
+          width: 100%;
+          background-color: $white;
+
+          & > .element{
+            flex-grow: 1;
+            padding: 15px 28px;
+            border-width: 1px;
+            border-style: solid;
+            border-image: linear-gradient(to top, $divider_gray, transparentize($divider_gray, 1)) 1 100%;
+            flex-basis: 0;
+
+
+            &:last-child {
+              border-right: none;
+            }
+
+            & > .title {
+              font-size: $font_size_14;
+              color: $font_color_light;
+              text-align: left;
+              text-transform: uppercase;
+            }
+
+            & > .value {
+              color: $font_color_dark;
+              margin-top: 5px;
+              text-align: left;
+
+              &.success {
+                color: $green;
+              }
+
+              & > .big_sum {
+                display: inline-block;
+                font-size: $font_size_40;
+
+                &:not(:last-child)::after {
+                  font-size: $font_size_40;
+                  content: ',';
+                }
+              }
+
+              & > .cents {
+                display: inline-block;
+                font-size: $font_size_20;
+                margin-left: 5px;
+              }
+
+              &::after {
+                content: '₽';
+                font-size: $font_size_20;
+              }
+            }
+
+            & > .sub_info {
+              text-align: left;
+              font-size: $font_size_14;
+              color: $font_color_light;
+
+              &.error {
+                color: $red;
+              }
+
+              &.success {
+                color: $green;
+              }
+            }
+          }
+        }
+
+        &:not(:last-child) {
+          margin-bottom: 20px;
+        }
+
+        & > .details_container {
+          padding: 15px 0px;
+          background-color: $filling_gray_2;
+          width: 100%;
+          box-shadow: inset 0 8px 5px -5px $filling_gray_dark;
+
+          & > .details_table {
+            width: 100%;
+            & > .row {
+              display: flex;
+              flex-direction: row;
+              font-size: $font_size_16;
+              padding: 12px 0px;
+              color: $font_color_light;
+
+              &.header {
+                color: $font_color_light;
+              }
+
+              &:not(:last-child) {
+                border-bottom: 1px solid $divider_gray;
+              }
+
+              & > .cell {
+                text-align: left;
+                flex-grow: 1;
+                flex-basis: 0;
+                color: $font_color_light;
+
+                &:first-child {
+                  flex-grow: 4;
+                  padding-left: 28px;
+                }
+
+
+              }
+
+              &:not(.header) > .cell:first-child,
+              &:not(.header) > .cell:last-child {
+                font-weight: 600;
+                color: $font_color_dark
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

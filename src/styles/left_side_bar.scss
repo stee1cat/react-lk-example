@@ -1,0 +1,51 @@
+@import "variables";
+
+.left_side_bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-height: 100vh;
+  z-index: 9999;
+  background-color: $filling_gray_light;
+
+  .base {
+    padding-top: 47px;
+    width: 272px;
+    background-color: $filling_gray_light;
+    height: 100%;
+
+    .block {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+
+      .element {
+        border: none;
+        border-left: 3px $filling_gray_light solid;
+        padding-left: 25px;
+        padding-right: 25px;
+
+        &.account_name
+        {
+          border-color: $blue;
+          font-weight: 600;
+
+          .part {
+            font-size: $font_size_20;
+            margin-bottom: 5px;
+
+            &:last-child {
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
+
+      &.align_end
+      {
+        justify-content: flex-end;
+      }
+    }
+  }
+}
+

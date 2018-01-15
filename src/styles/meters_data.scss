@@ -1,0 +1,258 @@
+@import "variables";
+
+.meters_data_page {
+  width: 100%;
+
+  & > .content_block {
+    overflow: hidden;
+    border-radius: 3px;
+
+    & > .meters_table {
+
+      & > .row.header + .row {
+        border-radius: 3px 3px 0 0;
+      }
+
+      & > input[type='checkbox']:checked + .row .trigger {
+        background-image: url('../images/30/drop_down_reverse.png');
+      }
+
+      & > input[type='checkbox']:not(:checked) + .row .history_container {
+        display: none;
+      }
+
+      & > .row {
+        display: flex;
+        flex-direction: row;
+        background-color: $white;
+        align-items: center;
+        flex-wrap: wrap;
+
+        &.header {
+          background-color: $filling_gray;
+
+          & > .cell {
+            color: $font_color_light;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: $font_size_14;
+          }
+        }
+
+        &:not(.header) {
+          border-bottom: 1px solid $divider_gray;
+        }
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        & > .cell {
+          padding: 15px 28px;
+          flex-shrink: 0;
+          text-align: left;
+          font-size: $font_size_16;
+          flex-basis: 0;
+
+          &:first-child {
+            flex-grow: 2;
+            //background-color: #917AE4;
+          }
+          &:nth-child(2) {
+            flex-grow: 0.7;
+            //background-color: mediumseagreen;
+          }
+          &:nth-child(3) {
+            flex-grow: 1.3;
+            //background-color: #917AE4;
+          }
+          &:nth-child(4) {
+            flex-grow: 1;
+            //background-color: mediumseagreen;
+          }
+
+          & > .meter {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            & > .icon {
+              width: 25px;
+              height: 30px;
+              background-size: contain;
+              background-position: center;
+              background-repeat: no-repeat;
+              margin-right: 28px;
+
+              @each $n in cold_water,
+              electric,
+              gas,
+              hot_water {
+                &.icon_meter_#{$n} {
+                  background-image: url('../images/30/#{$n}.png');
+                }
+              }
+
+            }
+
+            & > .info {
+              flex-grow: 1;
+
+              & > .title {
+                font-size: $font_size_16;
+                font-weight: 600;
+                margin-bottom: 5px;
+              }
+
+              & > .sub_title {
+                font-size: $font_size_16;
+                color: $font_color_light;
+              }
+            }
+
+            & > .rate_container {
+              width: 80px;
+              & > .rate {
+                color: $font_color_light;
+                margin-bottom: 50px;
+
+                &:last-child {
+                  margin-bottom: 0;
+                }
+              }
+            }
+          }
+
+          & > .prev_data {
+
+            margin-bottom: 30px;
+
+            &:last-child {
+              margin-bottom: 0;
+            }
+
+            & > .value_container {
+              margin-bottom: 5px;
+              & > .units {
+                color: $font_color_light;
+              }
+            }
+
+            & > .month {
+              color: $font_color_light;
+            }
+          }
+
+          & > .input_container {
+            margin-bottom: 30px;
+
+            &:last-child {
+              margin-bottom: 0;
+            }
+          }
+
+          & > .history_toggler {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+
+            & > .text {
+              color: $font_color_light;
+              align-self: center;
+            }
+
+            & > .divider {
+              border-left: 1px solid $divider_gray;
+              margin: 0 15px;
+              height: 20px;
+              align-self: center;
+            }
+
+            & > .trigger {
+              width: 30px;
+              height: 30px;
+              background-size: contain;
+              background-position: center;
+              background-repeat: no-repeat;
+              background-image: url('../images/30/drop_down.png');
+              flex-shrink: 0;
+              cursor: pointer;
+            }
+          }
+        }
+
+        & > .history_container {
+          padding: 15px 0px;
+          background-color: $filling_gray_2;
+          width: 100%;
+          box-shadow: inset 0 8px 5px -5px $filling_gray_dark;
+
+          & > .year_container {
+            width: 100%;
+            color: $font_color_light;
+            text-align: center;
+            margin: 10px auto;
+
+            & > .arrow {
+              display: inline-block;
+              width: 20px;
+              height: 20px;
+              background-size: contain;
+              background-position: center;
+              background-repeat: no-repeat;
+              vertical-align: middle;
+              cursor: pointer;
+
+              &.left {
+                background-image: url('../images/20/arrow_left.png');
+              }
+
+              &.right {
+                background-image: url('../images/20/arrow_right.png');
+              }
+            }
+
+            & > .year {
+              display: inline-block;
+              font-size: $font_size_16;
+              font-weight: 600;
+              vertical-align: middle;
+              margin: 0 30px;
+              color: $font_color_dark;
+            }
+          }
+
+          & > .table_container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+
+            & > .column {
+              width: calc(100% / 12);
+              flex-grow: 1;
+              color: $font_color_light;
+              text-align: center;
+
+              & > .month {
+                border-bottom: 1px solid $divider_gray;
+                padding: 15px;
+              }
+
+              & > .value {
+                padding: 15px;
+              }
+            }
+          }
+        }
+
+      }
+    }
+
+    & > .footer {
+      padding: 0 28px 15px 28px;
+      background-color: $filling_gray_dark;
+      overflow: hidden;
+    }
+
+  }
+}

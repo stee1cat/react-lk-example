@@ -1,0 +1,203 @@
+@import "variables";
+
+input, button, textarea{
+  padding: 10px 19px;
+  border-radius: 3px;
+  outline: none;
+}
+
+input{
+  &[type=text],&[type=password]{
+    background-color: $white;
+    border: 1px solid $filling_gray_dark;
+    color: $font_color_dark;
+    font-weight: 600;
+
+    &:focus{
+      border: 1px solid $blue;
+    }
+
+    &:disabled{
+      background-color: $filling_gray_2;
+      border: 1px solid $filling_gray_dark;
+      color: $font_color_light;
+    }
+  }
+  border-radius: 3px;
+  width: 225px;
+  display: block;
+
+  &.full_width{
+    width: 100%;
+  }
+}
+
+textarea{
+  background-color: $white;
+  border: 1px solid $filling_gray_dark;
+  color: $font_color_dark;
+  font-weight: 600;
+  border-radius: 3px;
+  display: block;
+  resize: vertical;
+  min-height: 400px;
+
+  &:focus{
+    border: 1px solid $blue;
+  }
+
+  &:disabled{
+    background-color: $filling_gray_2;
+    border: 1px solid $filling_gray_dark;
+    color: $font_color_light;
+  }
+
+  &.full_width{
+    width: 100%;
+  }
+}
+
+.input_with_icon{
+  overflow: hidden;
+  position: relative;
+  &::before{
+    content: '';
+    width: 42px;
+    height: 42px;
+    top: 0;
+    left: 0;
+    position: absolute;
+    background-position: center;
+    background-size: 40%;
+    background-repeat: no-repeat;
+  }
+  &.lock{
+    &::before{
+      background-image: url('../images/40/lock.png');
+    }
+  }
+
+  & input{
+    padding-left: 42px;
+  }
+}
+
+.input_with_units {
+  overflow: hidden;
+  position: relative;
+
+  & > input {
+    width: 100%;
+  }
+
+  & > input:focus + .units {
+    border: 1px solid $blue;
+  }
+
+  & > .units {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: $filling_gray_2;
+    border: 1px solid $filling_gray_dark;
+    font-weight: 600;
+    padding: 10px 12px;
+    border-radius: 0 3px 3px 0;
+  }
+}
+
+.input_with_link {
+  position: relative;
+
+  & > input {
+    width: 100%;
+  }
+
+  & > .link {
+    position: absolute;
+    right: 0;
+    color: $blue;
+    top: 0;
+    cursor: pointer;
+    padding: 10px 19px;
+  }
+
+}
+
+
+
+button{
+  background-color: $white;
+  min-width: 200px;
+  border: 1px solid $filling_gray_dark;
+  display: block;
+  margin-top: 15px;
+
+  &:hover{
+    cursor: pointer;
+  }
+
+  &:active{
+    border-color: $gray_dark;
+    border-style: solid;
+  }
+
+  &.active{
+    background-color: $blue;
+    border-color: $blue;
+    color: $white;
+    &:active{
+      border-color: $font_color_dark;
+    }
+  }
+
+  &.submit{
+    background-color: $green;
+    border-color: $green;
+    color: $white;
+    &:active{
+      border-color: $font_color_dark;
+    }
+  }
+
+  &.simple{
+    background-color: $white;
+    border-color: $white;
+    color: $blue;
+    margin-top: 0;
+
+    &:active{
+      border: 1px dashed $filling_gray_dark;
+    }
+  }
+
+  &.autowidth{
+    min-width: 0;
+    width: auto;
+  }
+
+  &.only_icon {
+    min-width: auto;
+    background-position: center;
+    background-size: 80%;
+    margin-top: 0;
+    background-repeat: no-repeat;
+    border-color: $white;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
+
+    @each $n in b_plus, b_edit {
+      &.icon_#{$n} {
+        background-image: url('../images/20/#{$n}.png');
+      }
+    }
+  }
+
+  &.full_width {
+    width: 100%;
+  }
+}
+

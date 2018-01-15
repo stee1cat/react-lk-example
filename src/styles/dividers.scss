@@ -1,0 +1,28 @@
+@import "variables";
+
+.border_bottom_divider{
+  border-bottom: 1px $divider_gray solid;
+}
+
+.diviver_with_text
+{
+  position: relative;
+  text-align: center;
+
+  &::before, &::after{
+    content: '';
+    width: 105px;
+    position: absolute;
+    display: inline-block;
+    vertical-align: middle;
+    border-bottom: 1px solid $divider_gray;
+    top: 10px;
+  }
+  &::before{
+    margin-left: -115px;
+  }
+  &::after{
+    margin-left: 10px;
+  }
+
+}

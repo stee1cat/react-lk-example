@@ -1,0 +1,35 @@
+@import "variables";
+
+//.personal_information {
+//  .content_block {
+//    .cb_content {
+      .popup {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        z-index: 999;
+        box-shadow: 0 3px 10px $filling_gray_dark;
+        padding: 10px 19px;
+        background-color: $white;
+        border-radius: 3px;
+        margin-bottom: 15px;
+        .p_title {
+          display: block;
+          font-weight: 600;
+          &.center {
+            text-align: center;
+          }
+        }
+        .p_content {
+          .text {
+            margin-top: 15px;
+          }
+        }
+      }
+  //  }
+  //}
+//}
+
+//.popup {
+//
+//}

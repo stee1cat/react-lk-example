@@ -1,15 +1,20 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
+    context: path.join(__dirname, 'src'),
+    resolve: {
+        extensions: ['.js', '.jsx']
+    },
     entry: [
         'react-hot-loader/patch',
         'webpack-dev-server/client?http://0.0.0.0:1337',
         'webpack/hot/only-dev-server',
         'babel-polyfill',
         'whatwg-fetch',
-        './src/index.js'
+        './index.js'
     ],
     devServer: {
         hot: true,
@@ -31,57 +36,22 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader',
-                options: {
-                    presets: [
-                        [
-                            'es2015',
-                            {
-                                'modules': false
-                            }
-                        ],
-                        'stage-0',
-                        'react'
-                    ],
-                    plugins: [
-                        'transform-async-to-generator',
-                        'transform-decorators-legacy'
-                    ]
-                }
+                loader: 'babel-loader'
             },
             {
-                test: /\.scss|css$/,
-                use: [
-                    'style-loader',
-                    'css-loader',
-                    'postcss-loader',
-                    'resolve-url-loader',
-                    'sass-loader?sourceMap'
-                ]
+                test: /\.(png)$/,
+                use: 'raw-loader'
             },
             {
-                test: /\.(jpe?g|png|gif|svg)$/i,
-                use: [
-                    'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
-                    {
-                        loader: 'image-webpack-loader',
-                        query: {
-                            mozjpeg: {
-                                progressive: true
-                            },
-                            gifsicle: {
-                                interlaced: false
-                            },
-                            optipng: {
-                                optimizationLevel: 4
-                            },
-                            pngquant: {
-                                quality: '75-90',
-                                speed: 3
-                            }
-                        }
+                test: /\.scss$/,
+                exclude: /node_modules/,
+                use: ['style-loader', {
+                    loader: 'css-loader',
+                    options: {
+                        minimize: false,
+                        url: false
                     }
-                ]
+                }, 'sass-loader']
             },
             {
                 test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -95,11 +65,16 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.NamedModulesPlugin(),
+        new CopyWebpackPlugin([
+            {
+                from: 'images',
+                to: 'images'
+            }
+        ]),
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
             hash: false,
-            template: './index.hbs'
+            template: '../index.hbs'
         }),
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /nb/)
     ]

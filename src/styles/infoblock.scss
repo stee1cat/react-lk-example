@@ -1,0 +1,71 @@
+@import "variables";
+
+.main_container > .infoblock {
+  border-radius: 3px;
+  overflow: hidden;
+  background-color: $white;
+  width: 730px;
+  margin: 0 auto;
+
+  & > .header, & > .footer {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+
+  & > .header {
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+    & > .icon {
+      width: 30px;
+      height: 30px;
+      margin-right: 15px;
+      display: inline-block;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      vertical-align: middle;
+    }
+
+    & > .title {
+      display: inline-block;
+      vertical-align: middle;
+      font-size: $font_size_16;
+    }
+
+    &.success {
+      background-color: $green;
+      color: $white;
+
+      & > .icon {
+        background-image: url('../images/40/check.png');
+      }
+
+      & > .title {
+        color: $white;
+      }
+    }
+  }
+
+  & > .content {
+    & > .block {
+      @extend .border_bottom_divider;
+      padding-left: 28px;
+      padding-right: 28px;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &.half {
+        width: 50%;
+      }
+    }
+  }
+
+  & > .footer {
+    padding-bottom: 15px;
+    background-color: $filling_gray_dark;
+    overflow: hidden;
+  }
+}
