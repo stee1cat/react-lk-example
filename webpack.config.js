@@ -20,7 +20,14 @@ module.exports = {
         host: '0.0.0.0',
         publicPath: '/',
         historyApiFallback: true,
-        disableHostCheck: true
+        disableHostCheck: true,
+        proxy: {
+            '/lkServiceApi': {
+                target: 'https://b2b.infopaycentr.ru',
+                context: ["/lkServiceApi"],
+                secure: false
+            }
+        }
     },
     output: {
         path: path.join(__dirname, 'dist'),

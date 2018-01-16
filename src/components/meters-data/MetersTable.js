@@ -34,6 +34,7 @@ export default class MetersTable extends Component {
                         <div className="cell"/>
                     </div>
                     {items.map((item, key) => {
+                        // @todo: Нужен enum/константы по типам счётчиков
                         switch (item.title.toLowerCase()) {
                             case 'холодная вода':
                                 return <ColdWater item={item} key={key}/>;

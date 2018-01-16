@@ -1,52 +1,41 @@
 import { observable, action } from 'mobx';
-import axios from 'axios';
+
+import { RestApi } from '../utils/api';
+import { LocalStorageKeys, localStorageService } from '../utils/local-storage';
 
 export default class AppState {
+
     @observable authenticated;
     @observable authenticating;
-    @observable items;
-    @observable item;
 
     constructor() {
         this.authenticated = false;
         this.authenticating = false;
-        this.items = [];
-        this.item = {};
     }
 
-    async fetchData(pathname, id) {
-        let {data} = await axios.get(
-            `https://jsonplaceholder.typicode.com${pathname}`
-        );
+    @action authenticate(login, password) {
+        this.authenticating = true;
 
-        console.log(data);
-
-        data.length > 0 ? this.setData(data) : this.setSingle(data);
-    }
-
-    @action setData(data) {
-        this.items = data;
-    }
-
-    @action setSingle(data) {
-        this.item = data;
-    }
-
-    @action clearItems() {
-        this.items = [];
-        this.item = {};
-    }
-
-    @action authenticate() {
-        return new Promise((resolve, reject) => {
-            this.authenticating = true;
-
-            setTimeout(() => {
-                this.authenticated = !this.authenticated;
+        return RestApi.login(login, password)
+            .then(data => {
+                this.authenticated = true;
                 this.authenticating = false;
 
-                resolve(this.authenticated);
-            }, 0);
-        });
+                localStorageService.set(LocalStorageKeys.Token, data.tokenId);
+            })
+            .catch(response => {
+                this.authenticated = false;
+                this.authenticating = false;
+
+                return Promise.reject(response);
+            });
     }
+
+    @action logout() {
+        this.authenticated = false;
+        this.authenticating = false;
+
+        localStorageService.remove(LocalStorageKeys.Token);
+    }
+
 }

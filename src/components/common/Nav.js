@@ -19,17 +19,15 @@ export default class Nav extends Component {
 
         this.store = this.props.store.appState;
 
+        this.logout = this.logout.bind(this);
         this.setNavElement = this.setNavElement.bind(this);
 
         this.onBodyClick = this.onBodyClick.bind(this);
         this.onButtonClick = this.onButtonClick.bind(this);
     }
 
-    authenticate(e) {
-        if (e) {
-            e.preventDefault();
-        }
-        this.props.store.authenticate();
+    logout() {
+        this.store.logout();
     }
 
     setNavElement(element) {
@@ -126,7 +124,7 @@ export default class Nav extends Component {
                         <div className="block menu align_end">
                             <div className="element m_element">
                                 <div className="icon icon_exit"/>
-                                <div className="text uppercase">Выйти</div>
+                                <div className="text uppercase" onClick={this.logout}>Выйти</div>
                             </div>
                         </div>
                     </div>

@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { inject, observer } from 'mobx-react';
+import MobxReactForm from 'mobx-react-form';
 
 @inject('store')
 @observer
@@ -9,36 +10,54 @@ export default class Login extends Component {
         super(props);
 
         this.store = this.props.store.appState;
+        this.createForm();
     }
 
-    authenticate(e) {
-        if (e) {
-            e.preventDefault();
-        }
+    createForm() {
+        let fields = [
+            {
+                name: 'username',
+                type: 'text'
+            },
+            {
+                name: 'password',
+                type: 'password'
+            }
+        ];
+        let hooks = {
+            onSuccess: this.authenticate.bind(this)
+        };
 
-        this.store.authenticate();
+        this.form = new MobxReactForm({fields}, {hooks});
+    }
+
+    authenticate(form) {
+        let values = form.values();
+
+        this.store.authenticate(values.username, values.password)
+            .catch(response => alert(response.error));
     }
 
     render() {
         return (
-            <Fragment>
+            <form onSubmit={this.form.onSubmit}>
                 <div className="header">Личный кабинет</div>
                 <div className="content_with_description">
                     <div className="cwd_description">Ваш лицевой счёт</div>
                     <div className="cwd_content">
-                        <input className="full_width inlineblock" type="text" value="4600 4582 6633"/>
+                        <input className="full_width inlineblock" {...this.form.$('username').bind()}/>
                     </div>
                 </div>
                 <div className="content_with_description">
                     <div className="cwd_description">Пароль</div>
                     <div className="cwd_content">
                         <div className="input_with_link">
-                            <input className="full_width inlineblock" type="password" value="4600 4582 6633"/>
-                                <div className="link">Забыли?</div>
+                            <input className="full_width inlineblock" {...this.form.$('password').bind()}/>
+                            <div className="link">Забыли?</div>
                         </div>
                     </div>
                 </div>
-                <button className="active full_width" onClick={this.authenticate.bind(this)}>Войти</button>
+                <button className="active full_width">Войти</button>
                 <div className="border_bottom_divider"/>
                 <div className="sub_container_relative">
                     <button className="full_width">Где получить пароль?</button>
@@ -54,7 +73,7 @@ export default class Login extends Component {
                         </div>
                     </div>
                 </div>
-            </Fragment>
+            </form>
         );
     }
 
