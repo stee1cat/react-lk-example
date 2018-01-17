@@ -12,7 +12,7 @@ export default class MetersTable extends Component {
     constructor(props) {
         super(props);
 
-        this.store = this.props.store.metersState;
+        this.metersStore = this.props.store.meters;
 
         this.send = this.send.bind(this);
     }
@@ -22,7 +22,7 @@ export default class MetersTable extends Component {
     }
 
     render() {
-        let { items } = this.store;
+        let { items } = this.metersStore;
 
         return (
             <Fragment>

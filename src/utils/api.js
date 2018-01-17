@@ -25,17 +25,27 @@ export class RestApi {
         }
     }
 
+    static get onFailure() {
+        return async function (response) {
+            localStorageService.remove(LocalStorageKeys.Token);
+
+            return Promise.reject(response);
+        }
+    }
+
     static async get(action, params = {}) {
         return axios.get(method(action), {
                 params,
                 ...RestApi.config
             })
-            .then(RestApi.onSuccess);
+            .then(RestApi.onSuccess)
+            .catch(RestApi.onFailure);
     }
 
     static async post(action, params) {
         return axios.post(method(action), params, RestApi.config)
-            .then(RestApi.onSuccess);
+            .then(RestApi.onSuccess)
+            .catch(RestApi.onFailure);
     }
 
     static async login(username, password) {

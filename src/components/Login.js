@@ -9,7 +9,7 @@ export default class Login extends Component {
     constructor(props) {
         super(props);
 
-        this.store = this.props.store.appState;
+        this.app = this.props.store.app;
         this.createForm();
     }
 
@@ -34,7 +34,7 @@ export default class Login extends Component {
     authenticate(form) {
         let values = form.values();
 
-        this.store.authenticate(values.username, values.password)
+        this.app.authenticate(values.username, values.password)
             .catch(response => alert(response.error));
     }
 

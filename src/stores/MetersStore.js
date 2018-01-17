@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const meters = require('./meters.json');
 
-export default class MetersState {
+export default class MetersStore {
 
     @observable items;
 

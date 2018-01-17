@@ -17,7 +17,8 @@ export default class Nav extends Component {
     constructor(props) {
         super(props);
 
-        this.store = this.props.store.appState;
+        this.app = this.props.store.app;
+        this.account = this.props.store.account;
 
         this.logout = this.logout.bind(this);
         this.setNavElement = this.setNavElement.bind(this);
@@ -27,7 +28,7 @@ export default class Nav extends Component {
     }
 
     logout() {
-        this.store.logout();
+        this.app.logout();
     }
 
     setNavElement(element) {
@@ -59,7 +60,8 @@ export default class Nav extends Component {
     }
 
     render() {
-        const {authenticated, authenticating} = this.store;
+        const { personalData } = this.account.info;
+        const { authenticated, authenticating } = this.app;
         const classes = classnames({
             'left_side_bar': true,
             'not_visible': !this.state.opened
@@ -71,20 +73,18 @@ export default class Nav extends Component {
                     <div className="base">
                         <div className="block border_bottom_divider">
                             <div className="element account_name">
-                                <div className="part">Иванов</div>
-                                <div className="part">Иван</div>
-                                <div className="part">Иванович</div>
+                                <div className="part">{personalData.fio}</div>
                             </div>
                             <div className="element">
                                 <div className="content_with_description border_bottom_divider">
                                     <div className="cwd_description bold">УК</div>
-                                    <div className="cwd_content bold">Тёплый дом</div>
+                                    <div className="cwd_content bold">{personalData.uk}</div>
                                 </div>
                             </div>
                             <div className="element">
                                 <div className="content_with_description">
                                     <div className="cwd_description bold">Л/С</div>
-                                    <div className="cwd_content bold">4600 4582 6633</div>
+                                    <div className="cwd_content bold">{personalData.ls}</div>
                                 </div>
                             </div>
                         </div>

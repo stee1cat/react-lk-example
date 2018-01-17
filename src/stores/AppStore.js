@@ -3,7 +3,7 @@ import { observable, action } from 'mobx';
 import { RestApi } from '../utils/api';
 import { LocalStorageKeys, localStorageService } from '../utils/local-storage';
 
-export default class AppState {
+export default class AppStore {
 
     @observable authenticated;
     @observable authenticating;
@@ -11,6 +11,12 @@ export default class AppState {
     constructor() {
         this.authenticated = false;
         this.authenticating = false;
+
+        this.localStorage = localStorageService;
+    }
+
+    get token() {
+        return this.localStorage.get(LocalStorageKeys.Token);
     }
 
     @action authenticate(login, password) {
@@ -18,16 +24,16 @@ export default class AppState {
 
         return RestApi.login(login, password)
             .then(data => {
+                this.localStorage.set(LocalStorageKeys.Token, data.tokenId);
+
                 this.authenticated = true;
                 this.authenticating = false;
-
-                localStorageService.set(LocalStorageKeys.Token, data.tokenId);
             })
             .catch(response => {
                 this.authenticated = false;
                 this.authenticating = false;
 
-                return Promise.reject(response);
+                return response;
             });
     }
 
@@ -35,7 +41,7 @@ export default class AppState {
         this.authenticated = false;
         this.authenticating = false;
 
-        localStorageService.remove(LocalStorageKeys.Token);
+        this.localStorage.remove(LocalStorageKeys.Token);
     }
 
 }

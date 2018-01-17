@@ -10,7 +10,7 @@ export default class Header extends Component {
     constructor(props) {
         super(props);
 
-        this.store = this.props.store.appState;
+        this.store = this.props.store.app;
     }
 
     render() {

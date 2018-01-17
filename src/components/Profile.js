@@ -10,16 +10,16 @@ class Profile extends Component {
     constructor(props) {
         super(props);
 
-        this.store = this.props.store;
+        this.accountStore = this.props.store.account;
     }
 
     render() {
-        const store = this.store;
+        const { personalData, myRoom } = this.accountStore.info;
 
         return (
             <div className="main_container">
                 <div className="headline">
-                    <div className="text">Иванов Иван Иванович</div>
+                    <div className="text">{personalData.fio}</div>
                 </div>
                 <div className="personal_information">
                     <div className="content_block">
@@ -27,16 +27,16 @@ class Profile extends Component {
                         <div className="cb_content">
                             <div className="content_with_description">
                                 <div className="cwd_description bold">УК</div>
-                                <div className="cwd_content bold">Тёплый дом</div>
+                                <div className="cwd_content bold">{personalData.uk}</div>
                             </div>
                             <div className="content_with_description">
                                 <div className="cwd_description bold">Л/С</div>
-                                <div className="cwd_content bold">4600 4582 6633</div>
+                                <div className="cwd_content bold">{personalData.ls}</div>
                             </div>
                             <div className="content_with_description">
                                 <div className="cwd_description bold">Номер телефона</div>
                                 <div className="cwd_content bold">
-                                    <span className="inlineblock">+7 912 733-23-51</span>
+                                    <span className="inlineblock">{personalData.phone}</span>
                                     <button className="only_icon icon_b_plus inlineblock float_right"/>
                                     <button className="only_icon icon_b_edit inlineblock float_right"/>
                                 </div>
@@ -44,7 +44,7 @@ class Profile extends Component {
                             <div className="content_with_description">
                                 <div className="cwd_description bold">E-mail</div>
                                 <div className="cwd_content bold">
-                                    <span className="inlineblock">ivanov.ii@mail.ru</span>
+                                    <span className="inlineblock">{personalData.email}</span>
                                     <button className="only_icon icon_b_edit inlineblock float_right"/>
                                 </div>
                             </div>
@@ -98,15 +98,15 @@ class Profile extends Component {
                         <div className="cb_content">
                             <div className="content_with_description">
                                 <div className="cwd_description bold">Адрес</div>
-                                <div className="cwd_content bold">Пермь, Пермская 1, 1</div>
+                                <div className="cwd_content bold">{myRoom.address}</div>
                             </div>
                             <div className="content_with_description">
                                 <div className="cwd_description bold">Площадь</div>
-                                <div className="cwd_content bold">182 м</div>
+                                <div className="cwd_content bold">{myRoom.area} м</div>
                             </div>
                             <div className="content_with_description">
                                 <div className="cwd_description bold">Зарегистрировано</div>
-                                <div className="cwd_content bold">3 человека</div>
+                                <div className="cwd_content bold">{myRoom.numberRegistered} человека</div>
                             </div>
                             <div className="content_with_icon">
                                 <div className="cwi_icon icon_p_info"/>

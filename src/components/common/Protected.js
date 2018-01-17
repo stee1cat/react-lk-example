@@ -10,7 +10,8 @@ export default function Protected(Component) {
 
         constructor(props) {
             super(props);
-            this.store = this.props.store.appState;
+
+            this.store = this.props.store.app;
         }
 
         render() {

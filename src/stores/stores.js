@@ -1,9 +1,11 @@
 import { store } from 'rfx-core';
 
-import AppState from './AppState';
-import MetersState from './MetersState';
+import AppStore from './AppStore';
+import MetersStore from './MetersStore';
+import AccountStore from './AccountStore';
 
 export default store.setup({
-    appState: AppState,
-    metersState: MetersState
+    app: AppStore,
+    meters: MetersStore,
+    account: AccountStore
 });
