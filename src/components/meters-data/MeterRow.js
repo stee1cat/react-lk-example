@@ -13,7 +13,7 @@ export default class MeterRow extends Component {
     }
 
     render() {
-        let { children, title, subtitle, icon, info } = this.props;
+        let { children, title, icon, info, item } = this.props;
         let id = `meter-row-${componentId}`;
 
         return (
@@ -25,7 +25,7 @@ export default class MeterRow extends Component {
                             <div className={`icon icon_meter_${icon}`}/>
                             <div className="info">
                                 <div className="title">{title}</div>
-                                <div className="sub_title">{subtitle}</div>
+                                <div className="sub_title">{item.serial}</div>
                             </div>
                             {info}
                         </div>
@@ -38,7 +38,7 @@ export default class MeterRow extends Component {
                             <label htmlFor={id} className="trigger"/>
                         </div>
                     </div>
-                    <History/>
+                    <History item={item}/>
                 </div>
             </Fragment>
         );

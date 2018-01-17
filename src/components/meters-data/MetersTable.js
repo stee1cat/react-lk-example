@@ -1,4 +1,4 @@
-import { inject } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import React, { Component, Fragment } from 'react';
 
 import ColdWater from './ColdWater';
@@ -7,6 +7,7 @@ import Gas from './Gas';
 import HotWater from './HotWater';
 
 @inject('store')
+@observer
 export default class MetersTable extends Component {
 
     constructor(props) {
@@ -15,6 +16,10 @@ export default class MetersTable extends Component {
         this.metersStore = this.props.store.meters;
 
         this.send = this.send.bind(this);
+    }
+
+    async componentDidMount() {
+        await this.metersStore.load();
     }
 
     send() {

@@ -8,7 +8,7 @@ export default class ColdWater extends Component {
         let { item } = this.props;
 
         return (
-            <Water icon="cold_water" title="Холодная вода" subtitle={item.serial}/>
+            <Water icon="cold_water" title="Холодная вода" item={item}/>
         );
     }
 

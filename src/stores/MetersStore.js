@@ -1,26 +1,19 @@
 import { observable, action } from 'mobx';
-import axios from 'axios';
 
-const meters = require('./meters.json');
+import { RestApi } from '../utils/api';
 
 export default class MetersStore {
 
-    @observable items;
+    @observable items = [];
 
-    constructor() {
-        this.items = meters.data.meters;
+    async load() {
+        let { meters } = await RestApi.getMeters();
+
+        this.set(meters);
     }
 
-    async fetchData(pathname, id) {
-        let {data} = await axios.get(
-            `https://jsonplaceholder.typicode.com${pathname}`
-        );
-
-        this.setData(data);
-    }
-
-    @action setData(data) {
-        this.items = data;
+    @action set(items) {
+        this.items = items;
     }
 
     @action clear() {
