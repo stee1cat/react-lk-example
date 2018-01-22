@@ -71,7 +71,7 @@ module.exports = {
                 NODE_ENV: JSON.stringify('production')
             }
         }),
-        new ExtractTextPlugin('/assets/[name].[contenthash:8].css'),
+        new ExtractTextPlugin('assets/[name].[contenthash:8].css'),
         new webpack.optimize.OccurrenceOrderPlugin(true),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
