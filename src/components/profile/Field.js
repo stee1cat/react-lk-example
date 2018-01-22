@@ -17,7 +17,7 @@ export default class Field extends Component {
 
         this.onClick = this.onClick.bind(this);
         this.onChange = this.onChange.bind(this);
-        this.onBlur = this.onBlur.bind(this);
+        this.onSave = this.onSave.bind(this);
     }
 
     onClick() {
@@ -34,7 +34,7 @@ export default class Field extends Component {
         });
     }
 
-    onBlur() {
+    onSave() {
         let { mode, value } = this.state;
 
         if (mode === Mode.Edit) {
@@ -75,9 +75,12 @@ export default class Field extends Component {
             <div className="cwd_content bold">
                 {
                     mode === Mode.View ? <span className="inlineblock">{value}</span> :
-                        <input className="inlineblock" value={value} onChange={this.onChange} onBlur={this.onBlur}/>
+                        <input className="inlineblock" value={value} type="text" onChange={this.onChange}/>
                 }
-                <button className="only_icon icon_b_edit inlineblock float_right" onClick={this.onClick}/>
+                {
+                    mode === Mode.View ? <button className="only_icon icon_b_edit inlineblock float_right" onClick={this.onClick}/> :
+                        <button className="simple autowidth inlineblock float_right" onClick={this.onSave}>Сохранить</button>
+                }
             </div>
         );
     }
