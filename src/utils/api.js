@@ -4,7 +4,14 @@ import merge from 'deepmerge';
 
 import { LocalStorageKeys, localStorageService } from './local-storage';
 
-const ENDPOINT = '/lkServiceApi/';
+let ENDPOINT;
+
+if (process.env.NODE_ENV === 'production') {
+    ENDPOINT = 'https://b2b.infopaycentr.ru/lkServiceApi/';
+} else {
+    ENDPOINT = '/lkServiceApi/';
+}
+
 const AUTHORIZATION_HEADER = 'X-Rest-Token';
 
 let method = action => ENDPOINT + action.trim('/');
