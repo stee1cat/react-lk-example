@@ -30,7 +30,7 @@ export default class History extends Component {
     }
 
     createPeriod(scales) {
-        if (scales.length) {
+        if (scales.length && scales[0].scaleValues) {
             let values = scales[0].scaleValues.filter(v => v.type === 'history');
             let items = [];
 

@@ -10,11 +10,11 @@ export default class Header extends Component {
     constructor(props) {
         super(props);
 
-        this.store = this.props.store.app;
+        this.appStore = this.props.store.appStore;
     }
 
     render() {
-        const {authenticated} = this.store;
+        const { authenticated } = this.appStore;
 
         return (
             <Nav location={this.props.location}/>

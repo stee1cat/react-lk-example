@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 
 import Protected from './common/Protected';
+import EmailField from './profile/EmailField';
+import PhoneField from './profile/PhoneField';
 
 @inject('store')
 @observer
@@ -10,7 +12,7 @@ class Profile extends Component {
     constructor(props) {
         super(props);
 
-        this.accountStore = this.props.store.account;
+        this.accountStore = this.props.store.accountStore;
     }
 
     render() {
@@ -35,18 +37,11 @@ class Profile extends Component {
                             </div>
                             <div className="content_with_description">
                                 <div className="cwd_description bold">Номер телефона</div>
-                                <div className="cwd_content bold">
-                                    <span className="inlineblock">{personalData.phone}</span>
-                                    <button className="only_icon icon_b_plus inlineblock float_right"/>
-                                    <button className="only_icon icon_b_edit inlineblock float_right"/>
-                                </div>
+                                <PhoneField value={personalData.phone}/>
                             </div>
                             <div className="content_with_description">
                                 <div className="cwd_description bold">E-mail</div>
-                                <div className="cwd_content bold">
-                                    <span className="inlineblock">{personalData.email}</span>
-                                    <button className="only_icon icon_b_edit inlineblock float_right"/>
-                                </div>
+                                <EmailField value={personalData.email}/>
                             </div>
                             <div className="content_with_description">
                                 <div className="cwd_description bold">Пароль</div>

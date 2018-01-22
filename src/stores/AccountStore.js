@@ -10,13 +10,36 @@ export default class AccountStore {
         this.info = info;
     }
 
-    @action loadInfo() {
-        return RestApi.getAccount()
-            .then(account => {
-                this.setInfo(account);
+    @action async updatePhone(phone) {
+        await RestApi.setPhone(phone);
 
-                return account;
-            });
+        this.setInfo({
+            ...this.info,
+            personalData: {
+                ...this.info.personalData,
+                phone
+            }
+        });
+    }
+
+    @action async updateEmail(email) {
+        await RestApi.setEmail(email);
+
+        this.setInfo({
+            ...this.info,
+            personalData: {
+                ...this.info.personalData,
+                email
+            }
+        });
+    }
+
+    @action async loadInfo() {
+        let account = await RestApi.getAccount();
+
+        this.setInfo(account);
+
+        return account;
     }
 
 }

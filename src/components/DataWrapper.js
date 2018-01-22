@@ -10,13 +10,13 @@ export default function DataWrapper(Component) {
         constructor(props) {
             super(props);
 
-            this.store = this.props.store.app;
+            this.appStore = this.props.store.appStore;
         }
 
         componentDidMount() {
             let pathname = this.props.match.url;
             let id = this.props.match.id ? this.props.match.id : null;
-            this.store.fetchData(pathname, id);
+            this.appStore.fetchData(pathname, id);
         }
 
         render() {

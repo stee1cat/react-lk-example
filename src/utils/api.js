@@ -1,4 +1,6 @@
 import axios from 'axios';
+import querystring from 'querystring';
+import merge from 'deepmerge';
 
 import { LocalStorageKeys, localStorageService } from './local-storage';
 
@@ -17,56 +19,75 @@ export class RestApi {
         };
     }
 
-    static get onSuccess() {
-        return async function (response) {
-            let data = response.data;
+    static async onSuccess(response) {
+        let data = response.data;
 
-            return !data.code ? Promise.resolve(data.data) : Promise.reject(data);
-        }
+        return !data.code ? Promise.resolve(data.data) : Promise.reject(data);
     }
 
-    static get onFailure() {
-        return async function (response) {
-            localStorageService.remove(LocalStorageKeys.Token);
+    static async onFailure(response) {
+        localStorageService.remove(LocalStorageKeys.Token);
 
-            return Promise.reject(response);
-        }
+        return Promise.reject(response);
     }
 
     static async get(action, params = {}) {
-        return axios.get(method(action), {
-                params,
-                ...RestApi.config
-            })
-            .then(RestApi.onSuccess)
-            .catch(RestApi.onFailure);
+        try {
+            let data = await axios.get(method(action), {
+                    params,
+                    ...RestApi.config
+                });
+
+            return RestApi.onSuccess(data);
+        } catch (error) {
+            return RestApi.onFailure(error);
+        }
     }
 
     static async post(action, params) {
-        return axios.post(method(action), params, RestApi.config)
-            .then(RestApi.onSuccess)
-            .catch(RestApi.onFailure);
+        try {
+            let data = await axios.post(method(action), querystring.stringify(params), merge(RestApi.config, {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }));
+
+            return RestApi.onSuccess(data);
+        } catch (error) {
+            return RestApi.onFailure(error);
+        }
     }
 
     static async login(username, password) {
-        // @todo: GET для авторизации?
-        return RestApi.get('AuthService/login', {
+        return RestApi.post('AuthService/login', {
             ls: username,
             pass: password
-        })
+        });
     }
 
     static async logout() {
         // @todo: GET для логаута?
-        return RestApi.get('AuthService/logout')
+        return RestApi.get('AuthService/logout');
     }
 
     static async getAccount() {
-        return RestApi.get('Ls/info')
+        return RestApi.get('Ls/info');
     }
 
     static async getMeters() {
-        return RestApi.get('Meter/info')
+        return RestApi.get('Meter/info');
+    }
+
+    static async setPhone(phone) {
+        return RestApi.post('Ls/set/phone', {
+            value: phone
+        });
+    }
+
+    static async setEmail(email) {
+        return RestApi.post('Ls/set/email', {
+            value: email
+        });
     }
 
 }

@@ -17,36 +17,36 @@ export default class Layout extends Component {
     }
 
     async componentWillReceiveProps(nextProps) {
-        let { app } = this.props.store;
+        let { appStore } = this.props.store;
 
-        if (!this.state.authenticated && app.authenticated) {
+        if (!this.state.authenticated && appStore.authenticated) {
             await this.loadAccountInfo();
         }
 
         this.setState({
-            authenticated: app.authenticated
+            authenticated: appStore.authenticated
         });
     }
 
     async loadAccountInfo() {
-        let { app, account } = this.props.store;
+        let { appStore, accountStore } = this.props.store;
 
-        if (app.token) {
+        if (appStore.token) {
             this.setState({
                 loading: true
             });
 
             try {
-                await account.loadInfo();
+                await accountStore.loadInfo();
 
-                app.authenticated = true;
+                appStore.authenticated = true;
             } catch (error) {
                 console.error(error);
             }
         }
 
         this.setState({
-            authenticated: app.authenticated,
+            authenticated: appStore.authenticated,
             loading: false
         });
     }
@@ -55,14 +55,14 @@ export default class Layout extends Component {
         let {
             children,
             store: {
-                app
+                appStore
             }
         } = this.props;
         let { loading } = this.state;
 
         return (
             <Fragment>
-                {loading ? 'loading' : (app.authenticated ? <AppLayout children={children}/> : <AuthLayout children={children}/>)}
+                {loading ? 'loading' : (appStore.authenticated ? <AppLayout children={children}/> : <AuthLayout children={children}/>)}
             </Fragment>
         );
     }

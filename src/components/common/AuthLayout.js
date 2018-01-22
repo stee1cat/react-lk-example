@@ -10,7 +10,7 @@ export default class AuthLayout extends Component {
         let {
             children,
             store: {
-                app
+                appStore
             }
         } = this.props;
 
@@ -19,7 +19,7 @@ export default class AuthLayout extends Component {
                 <div className="main">
                     {children}
                 </div>
-                {app.authenticated && !app.authenticating && <Redirect to='/'/>}
+                {appStore.authenticated && !appStore.authenticating && <Redirect to='/'/>}
             </div>
         );
     }

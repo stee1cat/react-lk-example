@@ -13,10 +13,7 @@ export default class Gas extends Component {
                 <div className="cell">
                     <div className="prev_data">
                         <div className="value_container">
-                            <span className="bold">5</span>
-                            <span className="units">
-                                <Unit item={item}/>
-                            </span>
+                            <span className="bold">5</span> <span className="units"><Unit item={item}/></span>
                         </div>
                         <div className="month">Сентябрь</div>
                     </div>

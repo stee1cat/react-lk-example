@@ -17,8 +17,8 @@ export default class Nav extends Component {
     constructor(props) {
         super(props);
 
-        this.app = this.props.store.app;
-        this.account = this.props.store.account;
+        this.appStore = this.props.store.appStore;
+        this.accountStore = this.props.store.accountStore;
 
         this.logout = this.logout.bind(this);
         this.setNavElement = this.setNavElement.bind(this);
@@ -28,7 +28,7 @@ export default class Nav extends Component {
     }
 
     logout() {
-        this.app.logout();
+        this.appStore.logout();
     }
 
     setNavElement(element) {
@@ -60,8 +60,8 @@ export default class Nav extends Component {
     }
 
     render() {
-        const { personalData } = this.account.info;
-        const { authenticated, authenticating } = this.app;
+        const { personalData } = this.accountStore.info;
+        const { authenticated, authenticating } = this.appStore;
         const classes = classnames({
             'left_side_bar': true,
             'not_visible': !this.state.opened
@@ -104,11 +104,11 @@ export default class Nav extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="element m_element active">
+                            <div className="element m_element">
                                 <div className="icon icon_graph"/>
                                 <div className="text">Начисления</div>
                             </div>
-                            <div className="element m_element active">
+                            <div className="element m_element">
                                 <div className="icon icon_star"/>
                                 <div className="text">Обращения</div>
                             </div>

@@ -5,7 +5,7 @@ import MetersStore from './MetersStore';
 import AccountStore from './AccountStore';
 
 export default store.setup({
-    app: AppStore,
+    appStore: AppStore,
     meters: MetersStore,
-    account: AccountStore
+    accountStore: AccountStore
 });

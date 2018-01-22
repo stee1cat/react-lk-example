@@ -11,14 +11,14 @@ export default function Protected(Component) {
         constructor(props) {
             super(props);
 
-            this.store = this.props.store.app;
+            this.appStore = this.props.store.appStore;
         }
 
         render() {
             const {
                 authenticated,
                 authenticating
-            } = this.store;
+            } = this.appStore;
 
             return (
                 <Fragment>
