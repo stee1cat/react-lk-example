@@ -2,11 +2,12 @@ import axios from 'axios';
 import querystring from 'querystring';
 import merge from 'deepmerge';
 
+import { IS_PRODUCTION } from './constants';
 import { LocalStorageKeys, localStorageService } from './local-storage';
 
 let ENDPOINT;
 
-if (process.env.NODE_ENV === 'production') {
+if (IS_PRODUCTION) {
     ENDPOINT = 'https://b2b.infopaycentr.ru/lkServiceApi/';
 } else {
     ENDPOINT = '/lkServiceApi/';
@@ -32,10 +33,12 @@ export class RestApi {
         return !data.code ? Promise.resolve(data.data) : Promise.reject(data);
     }
 
-    static async onFailure(response) {
-        localStorageService.remove(LocalStorageKeys.Token);
+    static async onFailure(error) {
+        if (error && error.response && error.response.status === 401) {
+            localStorageService.remove(LocalStorageKeys.Token);
+        }
 
-        return Promise.reject(response);
+        return Promise.reject(error);
     }
 
     static async get(action, params = {}) {
@@ -94,6 +97,14 @@ export class RestApi {
     static async setEmail(email) {
         return RestApi.post('Ls/set/email', {
             value: email
+        });
+    }
+
+    static async setMeter(meterId, scaleId, value) {
+        return RestApi.post('Meter/set', {
+            meterId,
+            scaleId,
+            value
         });
     }
 

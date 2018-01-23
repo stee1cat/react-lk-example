@@ -3,22 +3,16 @@ import React, { Component, Fragment } from 'react';
 export default class Unit extends Component {
 
     render() {
-        let { scales } = this.props.item;
+        let { unit } = this.props;
 
-        if (scales.length) {
-            let unit = scales[0].unit;
-
-            if (unit === 'м3') {
-                return (
-                    <Fragment>
-                        м<sup>3</sup>
-                    </Fragment>
-                );
-            } else {
-                return unit;
-            }
+        if (unit === 'м3') {
+            return (
+                <Fragment>
+                    м<sup>3</sup>
+                </Fragment>
+            );
         } else {
-            return '';
+            return unit;
         }
     }
 

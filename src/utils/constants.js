@@ -1,3 +1,18 @@
-const isProduction = process.env.NODE_ENV === 'production';
+export const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
-export { isProduction };
+export const MONTH_LABELS = [
+    'Январь',
+    'Февраль',
+    'Март',
+    'Апрель',
+    'Май',
+    'Июнь',
+    'Июль',
+    'Август',
+    'Сентябрь',
+    'Октябрь',
+    'Ноябрь',
+    'Декабрь'
+];
+
+export const EMPTY_VALUE = '-';

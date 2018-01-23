@@ -6,6 +6,6 @@ import AccountStore from './AccountStore';
 
 export default store.setup({
     appStore: AppStore,
-    meters: MetersStore,
+    metersStore: MetersStore,
     accountStore: AccountStore
 });

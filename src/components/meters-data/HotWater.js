@@ -5,10 +5,10 @@ import Water from './Water';
 export default class HotWater extends Component {
 
     render() {
-        let { item } = this.props;
+        let { item, onChange } = this.props;
 
         return (
-            <Water icon="hot_water" title="Горячая вода" item={item}/>
+            <Water icon="hot_water" title="Горячая вода" item={item} onChange={onChange}/>
         );
     }
 

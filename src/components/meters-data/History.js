@@ -1,21 +1,7 @@
 import React, { Component } from 'react';
+import { MONTH_LABELS } from '../../utils/constants';
 
 import Unit from './Unit';
-
-const MONTH_LABELS = [
-    'Январь',
-    'Февраль',
-    'Март',
-    'Апрель',
-    'Май',
-    'Июнь',
-    'Июль',
-    'Август',
-    'Сентябрь',
-    'Октябрь',
-    'Ноябрь',
-    'Декабрь'
-];
 
 export default class History extends Component {
 
@@ -30,8 +16,10 @@ export default class History extends Component {
     }
 
     createPeriod(scales) {
-        if (scales.length && scales[0].scaleValues) {
-            let values = scales[0].scaleValues.filter(v => v.type === 'history');
+        let { scaleValues } = scales[0];
+
+        if (scaleValues) {
+            let values = scaleValues.filter(v => v.type === 'history');
             let items = [];
 
             for (let i = 0; i < 12; i++) {
@@ -49,7 +37,8 @@ export default class History extends Component {
 
     render() {
         let { items } = this.state;
-        let unit = <Unit item={this.props.item}/>;
+        let { item } = this.props;
+        let unit = <Unit unit={item.scales[0].unit}/>;
 
         return (
             <div className="history_container">
@@ -63,8 +52,7 @@ export default class History extends Component {
                         <div className="column" key={index}>
                             <div className="month">{item.period}</div>
                             <div className="value">
-                                <span className="bold">{item.value}</span>
-                                <span className="units">{unit}</span>
+                                <span className="bold">{item.value}</span> <span className="units">{unit}</span>
                             </div>
                         </div>
                     ))}
