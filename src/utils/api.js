@@ -68,8 +68,22 @@ export class RestApi {
         }
     }
 
+    static async simplePost(action, params) {
+        try {
+            let data = await axios.post(method(action), querystring.stringify(params), {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            });
+
+            return RestApi.onSuccess(data);
+        } catch (error) {
+            return RestApi.onFailure(error);
+        }
+    }
+
     static async login(username, password) {
-        return RestApi.post('AuthService/login', {
+        return RestApi.simplePost('AuthService/login', {
             ls: username,
             pass: password
         });
