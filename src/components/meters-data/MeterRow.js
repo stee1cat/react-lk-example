@@ -6,15 +6,19 @@ let componentId = 0;
 
 export default class MeterRow extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         componentId++;
+
+        this.state = {
+            componentId
+        }
     }
 
     render() {
         let { children, title, icon, rates, item } = this.props;
-        let id = `meter-row-${componentId}`;
+        let id = `meter-row-${this.state.componentId}`;
 
         return (
             <Fragment>

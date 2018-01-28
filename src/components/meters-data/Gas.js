@@ -15,7 +15,9 @@ export default class Gas extends Component {
                     {item.scales.map(scale => <PreviousPeriod key={scale.id} scale={scale}/>)}
                 </div>
                 <div className="cell">
-                    {item.scales.map(scale => <ScaleField key={scale.id} meterId={item.id} scale={scale} onChange={onChange}/>)}
+                    {item.scales.map(scale => (
+                        <ScaleField key={scale.id} precision={1} meterId={item.id} scale={scale} onChange={onChange}/>
+                    ))}
                 </div>
             </MeterRow>
         );

@@ -48,10 +48,10 @@ export default class MetersTable extends Component {
 
     async send() {
         try {
-            let meters = this.state.meters.filter(m => !!m.value)
+            let promises = this.state.meters.filter(m => !!m.value)
                 .map(meter => this.metersStore.update(meter));
 
-            await Promise.all(meters);
+            await Promise.all(promises);
             await this.metersStore.load();
         } catch (e) {
             console.error('Save error', e);

@@ -23,8 +23,8 @@ export default class MetersStore {
             }));
     }
 
-    @action async update(meter) {
-        return RestApi.setMeter(meter.meterId, meter.scaleId, meter.value);
+    @action async update(data) {
+        return RestApi.setMeter(data.meterId, data.scaleId, data.value);
     }
 
     @action clear() {

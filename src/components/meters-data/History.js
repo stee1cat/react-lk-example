@@ -3,11 +3,6 @@ import React, { Component, Fragment } from 'react';
 import { createRanges } from '../../utils/history';
 import HistoryScale from './HistoryScale';
 
-const RangeState = {
-    NotChanged: 0,
-    Changed: 1
-};
-
 export default class History extends Component {
 
     state = {
@@ -30,7 +25,7 @@ export default class History extends Component {
 
         this.setState(({selected}) => ({
             ranges,
-            selected: ranges.length > 0 && (selected === -1 || selected > ranges.length - 1) ? ranges.length - 1 : -1
+            selected: ranges.length > 0 && (selected === -1 || selected > ranges.length - 1) ? ranges.length - 1 : selected
         }));
     }
 
