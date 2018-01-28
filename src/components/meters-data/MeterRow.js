@@ -38,7 +38,7 @@ export default class MeterRow extends Component {
                             <label htmlFor={id} className="trigger"/>
                         </div>
                     </div>
-                    <History item={item}/>
+                    <History scales={item.scales}/>
                 </div>
             </Fragment>
         );

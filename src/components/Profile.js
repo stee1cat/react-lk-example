@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 
 import Protected from './common/Protected';
+import Unit from './meters-data/Unit';
 import EmailField from './profile/EmailField';
 import PhoneField from './profile/PhoneField';
 
@@ -97,7 +98,7 @@ class Profile extends Component {
                             </div>
                             <div className="content_with_description">
                                 <div className="cwd_description bold">Площадь</div>
-                                <div className="cwd_content bold">{myRoom.area} м</div>
+                                <div className="cwd_content bold">{myRoom.area} <Unit value="м2"/></div>
                             </div>
                             <div className="content_with_description">
                                 <div className="cwd_description bold">Зарегистрировано</div>

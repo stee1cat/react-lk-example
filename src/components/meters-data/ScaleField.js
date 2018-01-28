@@ -54,7 +54,7 @@ export default class ScaleField extends Component {
                 <div className="input_with_units">
                     <input type="text" value={value} onChange={this.onChange}/>
                     <div className="units">
-                        <Unit unit={unit}/>
+                        <Unit value={unit}/>
                     </div>
                 </div>
             </div>

@@ -14,5 +14,3 @@ export const MONTH_LABELS = [
     'Ноябрь',
     'Декабрь'
 ];
-
-export const EMPTY_VALUE = '-';

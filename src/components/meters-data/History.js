@@ -1,62 +1,61 @@
-import React, { Component } from 'react';
-import { MONTH_LABELS } from '../../utils/constants';
+import React, { Component, Fragment } from 'react';
 
-import Unit from './Unit';
+import { createRanges } from '../../utils/history';
+import HistoryScale from './HistoryScale';
+
+const RangeState = {
+    NotChanged: 0,
+    Changed: 1
+};
 
 export default class History extends Component {
 
     state = {
-        items: []
+        ranges: [],
+        selected: -1
     };
 
     componentDidMount() {
-        let { scales } = this.props.item;
-
-        this.createPeriod(scales);
+        this.handleProps(this.props);
     }
 
-    createPeriod(scales) {
-        let { scaleValues } = scales[0];
-
-        if (scaleValues) {
-            let values = scaleValues.filter(v => v.type === 'history');
-            let items = [];
-
-            for (let i = 0; i < 12; i++) {
-                items.push({
-                    period: MONTH_LABELS[i],
-                    value: i
-                });
-            }
-
-            this.setState({
-                items
-            });
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.scales !== this.props.scales) {
+            this.handleProps(nextProps);
         }
     }
 
+    handleProps({scales}) {
+        let ranges = createRanges(scales);
+
+        this.setState(({selected}) => ({
+            ranges,
+            selected: ranges.length > 0 && (selected === -1 || selected > ranges.length - 1) ? ranges.length - 1 : -1
+        }));
+    }
+
+    handleClick(value) {
+        this.setState(({selected, ranges}) => ({
+            selected: Math.min(ranges.length - 1, Math.max(0, selected + value))
+        }));
+    }
+
     render() {
-        let { items } = this.state;
-        let { item } = this.props;
-        let unit = <Unit unit={item.scales[0].unit}/>;
+        let { ranges, selected } = this.state;
+        let range = ranges[selected];
 
         return (
             <div className="history_container">
-                <div className="year_container">
-                    <div className="arrow left"/>
-                    <div className="year">2017</div>
-                    <div className="arrow right"/>
-                </div>
-                <div className="table_container">
-                    {items.map((item, index) => (
-                        <div className="column" key={index}>
-                            <div className="month">{item.period}</div>
-                            <div className="value">
-                                <span className="bold">{item.value}</span> <span className="units">{unit}</span>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+            {range && (
+                <Fragment>
+                    <div className="year_container">
+                        <div className="arrow left" onClick={() => this.handleClick(-1)}/>
+                        <div className="year">{range.label}</div>
+                        <div className="arrow right" onClick={() => this.handleClick(1)}/>
+                    </div>
+                    {range.data.map((scale, idx) => <HistoryScale key={idx} values={scale} showLabel={!idx}/>)}
+                </Fragment>
+            )}
             </div>
         );
     }

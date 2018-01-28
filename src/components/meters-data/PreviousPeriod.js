@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import { MONTH_LABELS, EMPTY_VALUE } from '../../utils/constants';
-import Unit from './Unit';
+import { MONTH_LABELS } from '../../utils/constants';
+import Value from './Value';
 
 export default class PreviousPeriod extends Component {
 
@@ -15,7 +15,7 @@ export default class PreviousPeriod extends Component {
         return (
             <div className="prev_data">
                 <div className="value_container">
-                    <span className="bold">{previous.value || EMPTY_VALUE}</span> <span className="units"><Unit unit={unit}/></span>
+                    <Value value={previous[0].value} unit={unit}/>
                 </div>
                 <div className="month">{label}</div>
             </div>
