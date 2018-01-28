@@ -12,7 +12,9 @@ export default class Gas extends Component {
         return (
             <MeterRow icon="gas" title="Газ" item={item}>
                 <div className="cell">
-                    {item.scales.map(scale => <PreviousPeriod key={scale.id} scale={scale}/>)}
+                    {item.scales.map(scale => (
+                        <PreviousPeriod key={scale.id} scaleValues={scale.scaleValues} unit={scale.unit}/>
+                    ))}
                 </div>
                 <div className="cell">
                     {item.scales.map(scale => (

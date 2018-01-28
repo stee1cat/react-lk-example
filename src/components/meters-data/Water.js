@@ -12,7 +12,9 @@ export default class Water extends Component {
         return (
             <MeterRow {...this.props}>
                 <div className="cell">
-                    {item.scales.map(scale => <PreviousPeriod key={scale.id} scale={scale}/>)}
+                    {item.scales.map(scale => (
+                        <PreviousPeriod key={scale.id} scaleValues={scale.scaleValues} unit={scale.unit}/>
+                    ))}
                 </div>
                 <div className="cell">
                     {item.scales.map(scale => (

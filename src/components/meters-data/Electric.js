@@ -11,7 +11,9 @@ export default class Electric extends Component {
 
         return (
             <div className="rate_container">
-                {item.scales.map((scale, index) => <div key={index} className="rate">{scale.title} (Т{index + 1})</div>)}
+                {item.scales.map((scale, index) => (
+                    <div key={scale.id} className="rate">{scale.title ? `${scale.title} (Т${index + 1})` : ''}</div>
+                ))}
             </div>
         );
     }
@@ -22,7 +24,9 @@ export default class Electric extends Component {
         return (
             <MeterRow icon="electric" title="Электричество" item={item} rates={this.rates}>
                 <div className="cell">
-                    {item.scales.map(scale => <PreviousPeriod key={scale.id} scale={scale}/>)}
+                    {item.scales.map(scale => (
+                        <PreviousPeriod key={scale.id} scaleValues={scale.scaleValues} unit={scale.unit}/>
+                    ))}
                 </div>
                 <div className="cell">
                     {item.scales.map(scale => <ScaleField key={scale.id} meterId={item.id} scale={scale} onChange={onChange}/>)}
