@@ -7,23 +7,29 @@
   align-items: center;
   justify-content: center;
 
-  & > .main {
+  .main {
     background-color: $white;
     border-radius: 3px;
     padding: 28px;
     width: 350px;
 
-    & > .header {
+    .header {
       text-align: left;
       font-size: $font_size_24;
     }
 
     & > .content_with_description {
-      padding: 0;
-      padding-top: 25px;
+      padding: 25px 0;
     }
 
-    & > .border_bottom_divider {
+    .form-error, .error-message {
+      position: absolute;
+      color: $red;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .border_bottom_divider {
       margin-top: 15px;
     }
 

@@ -1,81 +1,132 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
+import validator from 'validator';
 import MobxReactForm from 'mobx-react-form';
+
+import { classnames } from '../utils/styles';
+import { required } from '../utils/validators';
+import Popup from './login/Popup';
 
 @inject('store')
 @observer
 export default class Login extends Component {
 
+    state = {
+        disabled: false
+    };
+
+    usernameInput = null;
+
     constructor(props) {
         super(props);
 
+        document.title = 'Вход';
+
         this.appStore = this.props.store.appStore;
         this.createForm();
+
+        this.setUsernameInput = this.setUsernameInput.bind(this);
+    }
+
+    componentDidMount() {
+        if (this.usernameInput) {
+            this.usernameInput.focus();
+        }
+    }
+
+    setUsernameInput(input) {
+        this.usernameInput = input;
     }
 
     createForm() {
         let fields = [
             {
                 name: 'username',
-                type: 'text'
+                type: 'text',
+                validators: [
+                    required
+                ]
             },
             {
                 name: 'password',
-                type: 'password'
+                type: 'password',
+                validators: [
+                    required
+                ]
             }
         ];
         let hooks = {
             onSuccess: this.authenticate.bind(this)
         };
+        let plugins = {
+            vjf: validator
+        };
 
-        this.form = new MobxReactForm({fields}, {hooks});
+        this.form = new MobxReactForm({fields}, {hooks, plugins});
     }
 
     async authenticate(form) {
         try {
-            let values = form.values();
+            if (form.isValid) {
+                let values = form.values();
 
-            await this.appStore.authenticate(values.username, values.password);
+                this.setState({
+                    disabled: true
+                });
+
+                await this.appStore.authenticate(values.username, values.password);
+
+                this.setState({
+                    disabled: false
+                });
+            }
         } catch (error) {
-            alert(error.message);
+            form.invalidate(error.message);
+
+            this.setState({
+                disabled: false
+            });
         }
     }
 
     render() {
+        let form = this.form;
+        let username = form.$('username');
+        let usernameClasses = classnames({
+            'full_width inlineblock': true,
+            'has-error': username.error
+        });
+        let password = form.$('password');
+        let passwordClasses = classnames({
+            'full_width inlineblock': true,
+            'has-error': password.error
+        });
+        let { disabled } = this.state;
+
         return (
-            <form onSubmit={this.form.onSubmit}>
+            <form onSubmit={form.onSubmit}>
                 <div className="header">Личный кабинет</div>
+                {(form.error) && <p className="form-error">{form.error}</p>}
                 <div className="content_with_description">
                     <div className="cwd_description">Ваш лицевой счёт</div>
                     <div className="cwd_content">
-                        <input className="full_width inlineblock" {...this.form.$('username').bind()}/>
+                        <input className={usernameClasses} {...username.bind()} ref={this.setUsernameInput}/>
+                        {(username.error && !username.isDirty) && <p className="error-message">{username.error}</p>}
                     </div>
                 </div>
                 <div className="content_with_description">
                     <div className="cwd_description">Пароль</div>
                     <div className="cwd_content">
                         <div className="input_with_link">
-                            <input className="full_width inlineblock" {...this.form.$('password').bind()}/>
+                            <input className={passwordClasses} {...password.bind()}/>
                             <div className="link">Забыли?</div>
                         </div>
+                        {(password.error && !password.isDirty) && <p className="error-message">{password.error}</p>}
                     </div>
                 </div>
-                <button className="active full_width">Войти</button>
+                <button className="active full_width" disabled={disabled}>Войти</button>
                 <div className="border_bottom_divider"/>
-                <div className="sub_container_relative">
-                    <button className="full_width">Где получить пароль?</button>
-                    <div className="popup not_visible">
-                        <div className="p_title center">Где получить пароль?</div>
-                        <div className="p_content">
-                            <div className="content_with_icon">
-                                <div className="cwi_icon icon_p_info"/>
-                                <div className="cwi_content">
-                                    Пароль вы можете получить в вашей управляющей компании
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <Popup/>
             </form>
         );
     }

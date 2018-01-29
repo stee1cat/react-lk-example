@@ -23,8 +23,8 @@ export default class Nav extends Component {
         this.logout = this.logout.bind(this);
         this.setNavElement = this.setNavElement.bind(this);
 
-        this.onBodyClick = this.onBodyClick.bind(this);
-        this.onButtonClick = this.onButtonClick.bind(this);
+        this.onBodyClickHandler = this.onBodyClickHandler.bind(this);
+        this.onButtonClickHandler = this.onButtonClickHandler.bind(this);
     }
 
     logout() {
@@ -35,7 +35,7 @@ export default class Nav extends Component {
         this.navElemenet = element;
     }
 
-    onBodyClick({target}) {
+    onBodyClickHandler({target}) {
         if (!target.contains(this.navElemenet)) {
             this.setState({
                 opened: false
@@ -43,12 +43,10 @@ export default class Nav extends Component {
         }
     }
 
-    onButtonClick() {
-        if (!this.state.opened) {
-            this.setState({
-                opened: true
-            });
-        }
+    onButtonClickHandler() {
+        this.setState(({opened}) => ({
+            opened: !opened
+        }));
     }
 
     componentDidMount() {
@@ -129,7 +127,7 @@ export default class Nav extends Component {
                         </div>
                     </div>
                 </nav>
-                <div onClick={this.onButtonClick}>
+                <div onClick={this.onButtonClickHandler}>
                     navigation
                 </div>
             </Fragment>
