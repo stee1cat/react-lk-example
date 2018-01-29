@@ -23,7 +23,7 @@ module.exports = {
         disableHostCheck: true,
         proxy: {
             '/lkServiceApi': {
-                target: 'https://b2b.infopaycentr.ru',
+                target: 'https://lk.infopaycentr.ru',
                 context: ["/lkServiceApi"],
                 secure: false
             }
