@@ -31,11 +31,14 @@ export default class Login extends Component {
         this.form = new MobxReactForm({fields}, {hooks});
     }
 
-    authenticate(form) {
-        let values = form.values();
+    async authenticate(form) {
+        try {
+            let values = form.values();
 
-        this.appStore.authenticate(values.username, values.password)
-            .catch(response => alert(response.error));
+            await this.appStore.authenticate(values.username, values.password);
+        } catch (error) {
+            alert(error.message);
+        }
     }
 
     render() {

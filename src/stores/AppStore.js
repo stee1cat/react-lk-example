@@ -19,22 +19,21 @@ export default class AppStore {
         return this.localStorage.get(LocalStorageKeys.Token);
     }
 
-    @action authenticate(login, password) {
+    @action async authenticate(login, password) {
         this.authenticating = true;
 
-        return RestApi.login(login, password)
-            .then(data => {
-                this.localStorage.set(LocalStorageKeys.Token, data.tokenId);
+        try {
+            let data = await RestApi.login(login, password);
+            this.localStorage.set(LocalStorageKeys.Token, data.tokenId);
 
-                this.authenticated = true;
-                this.authenticating = false;
-            })
-            .catch(response => {
-                this.authenticated = false;
-                this.authenticating = false;
+            this.authenticated = true;
+            this.authenticating = false;
+        } catch (error) {
+            this.authenticated = false;
+            this.authenticating = false;
 
-                return response;
-            });
+            return Promise.reject(error);
+        }
     }
 
     @action logout() {

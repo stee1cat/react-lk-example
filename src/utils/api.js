@@ -17,6 +17,10 @@ const AUTHORIZATION_HEADER = 'X-Rest-Token';
 
 let method = action => ENDPOINT + action.trim('/');
 
+function isAuthenticationError(e) {
+    return e && e.response && e.response.status === 401;
+}
+
 export class RestApi {
 
     static get config() {
@@ -34,7 +38,7 @@ export class RestApi {
     }
 
     static async onFailure(error) {
-        if (error && error.response && error.response.status === 401) {
+        if (isAuthenticationError(error)) {
             localStorageService.remove(LocalStorageKeys.Token);
         }
 

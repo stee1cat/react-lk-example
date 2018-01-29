@@ -10,9 +10,7 @@ import HotWater from './HotWater';
 @observer
 export default class MetersTable extends Component {
 
-    state = {
-        meters: []
-    };
+    meters = [];
 
     constructor(props) {
         super(props);
@@ -28,27 +26,20 @@ export default class MetersTable extends Component {
     }
 
     onChange(data) {
-        let { meters } = this.state;
-        let index = meters.findIndex(m => m.meterId === data.meterId && m.scaleId === data.scaleId);
+        let index = this.meters.findIndex(m => m.meterId === data.meterId && m.scaleId === data.scaleId);
 
         if (index > -1) {
-            let meter = meters[index];
+            let meter = this.meters[index];
 
             meter.value = data.value;
         } else {
-            meters.push(data);
+            this.meters.push(data);
         }
-
-        this.setState({
-            meters: [
-                ...meters
-            ]
-        });
     }
 
     async send() {
         try {
-            let promises = this.state.meters.filter(m => !!m.value)
+            let promises = this.meters.filter(m => !!m.value)
                 .map(meter => this.metersStore.update(meter));
 
             await Promise.all(promises);
@@ -60,7 +51,6 @@ export default class MetersTable extends Component {
 
     render() {
         let { items } = this.metersStore;
-        let { meters } = this.state;
 
         return (
             <Fragment>
@@ -71,17 +61,17 @@ export default class MetersTable extends Component {
                         <div className="cell">Текущие</div>
                         <div className="cell"/>
                     </div>
-                    {items.map((item, key) => {
+                    {items.map(item => {
                         // @todo: Нужен enum/константы по типам счётчиков
                         switch (item.title.toLowerCase()) {
                             case 'холодная вода':
-                                return <ColdWater item={item} key={key} onChange={this.onChange}/>;
+                                return <ColdWater item={item} key={item.id} onChange={this.onChange}/>;
                             case 'горячая вода':
-                                return <HotWater item={item} key={key} onChange={this.onChange}/>;
+                                return <HotWater item={item} key={item.id} onChange={this.onChange}/>;
                             case 'электричество':
-                                return <Electric item={item} key={key} onChange={this.onChange}/>;
+                                return <Electric item={item} key={item.id} onChange={this.onChange}/>;
                             case 'газ':
-                                return <Gas item={item} key={key} onChange={this.onChange}/>;
+                                return <Gas item={item} key={item.id} onChange={this.onChange}/>;
                         }
                     })}
                 </div>
