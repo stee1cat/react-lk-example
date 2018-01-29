@@ -1,14 +1,10 @@
-const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const merge = require("webpack-merge");
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-module.exports = {
-    context: path.join(__dirname, 'src'),
-    resolve: {
-        extensions: ['.js', '.jsx']
-    },
+const common = require('./webpack.config.common');
+
+module.exports = merge(common, {
     entry: {
         vendor: [
             'react',
@@ -20,23 +16,9 @@ module.exports = {
             './index.js'
         ]
     },
-    output: {
-        path: path.join(__dirname, 'dist'),
-        filename: 'assets/[name].[hash].js',
-        chunkFilename: 'assets/[name].[chunkhash].js'
-    },
-    devtool: 'cheap-module-source-map',
+    devtool: false,
     module: {
         rules: [
-            {
-                test: /\.js$/,
-                include: path.join(__dirname, 'src'),
-                loader: 'babel-loader'
-            },
-            {
-                test: /\.(png|jpg|jpeg|gif|svg)$/,
-                use: 'raw-loader'
-            },
             {
                 test: /\.scss$/,
                 exclude: /node_modules/,
@@ -53,15 +35,6 @@ module.exports = {
                         'sass-loader'
                     ]
                 })
-            },
-            {
-                test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                use: 'url-loader?limit=10000&mimetype=application/font-woff'
-            },
-            {
-                test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                use: 'file-loader',
-                exclude: /images/
             }
         ]
     },
@@ -85,16 +58,6 @@ module.exports = {
             output: {
                 comments: false
             }
-        }),
-        new CopyWebpackPlugin([
-            {
-                from: 'images',
-                to: 'images'
-            }
-        ]),
-        new HtmlWebpackPlugin({
-            hash: false,
-            template: '../index.hbs'
         })
     ]
-};
+});
