@@ -8,7 +8,7 @@ import { LocalStorageKeys, localStorageService } from './local-storage';
 let ENDPOINT;
 
 if (IS_PRODUCTION) {
-    ENDPOINT = 'https://b2b.infopaycentr.ru/lkServiceApi/';
+    ENDPOINT = 'https://lk.infopaycentr.ru/lkServiceApi/';
 } else {
     ENDPOINT = '/lkServiceApi/';
 }
