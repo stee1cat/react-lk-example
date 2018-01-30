@@ -127,7 +127,7 @@ export default class Nav extends Component {
                         </div>
                     </div>
                 </nav>
-                <div onClick={this.onButtonClickHandler}>
+                <div onClick={this.onButtonClickHandler} style={{display: 'inline-block'}}>
                     navigation
                 </div>
             </Fragment>

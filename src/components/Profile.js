@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 
+import PopupWithButton from './common/PopupWithButton';
 import Protected from './common/Protected';
-import Unit from './meters-data/Unit';
 import EmailField from './profile/EmailField';
 import PhoneField from './profile/PhoneField';
+import Room from './profile/Room';
 
 @inject('store')
 @observer
@@ -71,47 +72,17 @@ class Profile extends Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="sub_container_relative">
-                                        <button>Восстановить пароль</button>
-                                        <div className="popup not_visible">
-                                            <div className="p_title">Восстановить пароль</div>
-                                            <div className="p_content">
-                                                <div className="content_with_icon">
-                                                    <div className="cwi_icon icon_p_info"/>
-                                                    <div className="cwi_content">
-                                                        Вы можете в вашей УК
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <PopupWithButton btn={{
+                                                        label: 'Восстановить пароль'
+                                                     }}
+                                                     popup={{
+                                                         title: 'Восстановить пароль',
+                                                         content: 'Вы можете в вашей УК'}}/>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="content_block">
-                        <div className="cb_description uppercase">Мои помещения</div>
-                        <div className="cb_content">
-                            <div className="content_with_description">
-                                <div className="cwd_description bold">Адрес</div>
-                                <div className="cwd_content bold">{myRoom.address}</div>
-                            </div>
-                            <div className="content_with_description">
-                                <div className="cwd_description bold">Площадь</div>
-                                <div className="cwd_content bold">{myRoom.area} <Unit value="м2"/></div>
-                            </div>
-                            <div className="content_with_description">
-                                <div className="cwd_description bold">Зарегистрировано</div>
-                                <div className="cwd_content bold">{myRoom.numberRegistered} человека</div>
-                            </div>
-                            <div className="content_with_icon">
-                                <div className="cwi_icon icon_p_info"/>
-                                <div className="cwi_content">
-                                    Для изменения информации раздела <span className="bold">Мои помещения</span> обратитесь в свою УК
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <Room data={myRoom}/>
                 </div>
             </div>
         );

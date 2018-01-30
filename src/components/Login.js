@@ -5,7 +5,7 @@ import MobxReactForm from 'mobx-react-form';
 
 import { classnames } from '../utils/styles';
 import { required } from '../utils/validators';
-import Popup from './login/Popup';
+import PopupWithButton from './common/PopupWithButton';
 
 @inject('store')
 @observer
@@ -126,7 +126,13 @@ export default class Login extends Component {
                 </div>
                 <button className="active full_width" disabled={disabled}>Войти</button>
                 <div className="border_bottom_divider"/>
-                <Popup/>
+                <PopupWithButton btn={{
+                                    label: 'Где получить пароль?',
+                                    className: 'full_width'
+                                 }}
+                                 popup={{
+                                     title: 'Где получить пароль?',
+                                     content: 'Пароль вы можете получить в вашей управляющей компании'}}/>
             </form>
         );
     }

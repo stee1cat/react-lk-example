@@ -36,6 +36,10 @@
     & .popup {
       width: 140%;
       margin-left: -20%;
+
+      .p_title {
+        text-align: center;
+      }
     }
   }
 }
