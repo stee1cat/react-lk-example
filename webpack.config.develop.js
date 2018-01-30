@@ -17,14 +17,7 @@ module.exports = merge(common, {
         host: '0.0.0.0',
         publicPath: '/',
         historyApiFallback: true,
-        disableHostCheck: true,
-        proxy: {
-            '/lkServiceApi': {
-                target: 'https://lk.infopaycentr.ru',
-                context: ["/lkServiceApi"],
-                secure: false
-            }
-        }
+        disableHostCheck: true
     },
     devtool: 'source-map',
     module: {

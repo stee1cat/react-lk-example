@@ -2,17 +2,9 @@ import axios from 'axios';
 import querystring from 'querystring';
 import merge from 'deepmerge';
 
-import { IS_PRODUCTION } from './constants';
 import { LocalStorageKeys, localStorageService } from './local-storage';
 
-let ENDPOINT;
-
-if (IS_PRODUCTION) {
-    ENDPOINT = 'https://lk.infopaycentr.ru/lkServiceApi/';
-} else {
-    ENDPOINT = '/lkServiceApi/';
-}
-
+const ENDPOINT = 'https://lk.infopaycentr.ru/lkServiceApi/';
 const AUTHORIZATION_HEADER = 'X-Rest-Token';
 
 let method = action => ENDPOINT + action.trim('/');
