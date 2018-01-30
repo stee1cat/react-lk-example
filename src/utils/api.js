@@ -26,7 +26,10 @@ export class RestApi {
     static async onSuccess(response) {
         let data = response.data;
 
-        return !data.code ? Promise.resolve(data.data) : Promise.reject(data);
+        return !data.code ? Promise.resolve(data.data) : Promise.reject({
+            ...data,
+            message: data.error
+        });
     }
 
     static async onFailure(error) {
