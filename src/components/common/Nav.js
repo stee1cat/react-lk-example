@@ -50,11 +50,11 @@ export default class Nav extends Component {
     }
 
     componentDidMount() {
-        document.body.addEventListener('click', this.onBodyClick);
+        document.body.addEventListener('click', this.onBodyClickHandler);
     }
 
     componentWillUnmount() {
-        document.body.removeEventListener('click', this.onBodyClick);
+        document.body.removeEventListener('click', this.onBodyClickHandler);
     }
 
     render() {
