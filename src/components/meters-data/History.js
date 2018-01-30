@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
 import { createRanges } from '../../utils/history';
+import { classnames } from '../../utils/styles';
 import HistoryScale from './HistoryScale';
 
 export default class History extends Component {
@@ -38,15 +39,23 @@ export default class History extends Component {
     render() {
         let { ranges, selected } = this.state;
         let range = ranges[selected];
+        let arrowLeft = classnames({
+            'arrow left': true,
+            'inactive': 0 === selected
+        });
+        let arrowRight = classnames({
+            'arrow right': true,
+            'inactive': (ranges.length - 1) === selected
+        });
 
         return (
             <div className="history_container">
             {range && (
                 <Fragment>
                     <div className="year_container">
-                        <div className="arrow left" onClick={() => this.handleClick(-1)}/>
+                        <div className={arrowLeft} onClick={() => this.handleClick(-1)}/>
                         <div className="year">{range.label}</div>
-                        <div className="arrow right" onClick={() => this.handleClick(1)}/>
+                        <div className={arrowRight} onClick={() => this.handleClick(1)}/>
                     </div>
                     {range.data.map((scale, idx) => <HistoryScale key={idx} values={scale} showLabel={!idx}/>)}
                 </Fragment>

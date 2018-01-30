@@ -203,6 +203,10 @@
               vertical-align: middle;
               cursor: pointer;
 
+              &.inactive {
+                visibility: hidden;
+              }
+
               &.left {
                 background-image: url('../images/20/arrow_left.png');
               }
