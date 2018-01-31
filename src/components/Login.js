@@ -75,10 +75,6 @@ export default class Login extends Component {
                 });
 
                 await this.appStore.authenticate(values.username, values.password);
-
-                this.setState({
-                    disabled: false
-                });
             }
         } catch (error) {
             form.invalidate(error.message);

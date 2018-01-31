@@ -27,7 +27,7 @@ export default class MetersStore {
         return RestApi.setMeter(data.meterId, data.scaleId, data.value);
     }
 
-    @action clear() {
+    @action reset() {
         this.items = [];
     }
 

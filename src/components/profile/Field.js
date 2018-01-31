@@ -55,9 +55,11 @@ export default class Field extends Component {
     }
 
     componentDidMount() {
-        this.setState({
-            value: this.props.value
-        });
+        if (this.props.value) {
+            this.setState({
+                value: this.props.value
+            });
+        }
     }
 
     componentWillReceiveProps(nextProps) {

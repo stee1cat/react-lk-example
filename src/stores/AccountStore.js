@@ -42,4 +42,8 @@ export default class AccountStore {
         return account;
     }
 
+    reset() {
+        this.info = null;
+    }
+
 }
