@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 
+import { updateTitle } from '../utils/app';
 import Protected from './common/Protected';
 import MetersTable from './meters-data/MetersTable';
 
 class Meters extends Component {
+
+    constructor(props) {
+        super(props);
+
+        updateTitle('Показания счётчиков');
+    }
 
     render() {
         return (

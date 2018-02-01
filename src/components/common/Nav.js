@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { inject, observer } from 'mobx-react';
 
 import { classnames } from '../../utils/styles';
-import ActiveLink from '../ui/ActiveLink';
+import MenuItem from './MenuItem';
 
 @inject('store')
 @observer
@@ -11,6 +11,39 @@ export default class Nav extends Component {
     state = {
         opened: false
     };
+
+    items = [
+        {
+            title: 'Счётчики',
+            icon: 'home',
+            children: [
+                {
+                    title: 'Показания',
+                    link: '/meters-data'
+                },
+                {
+                    title: 'Анализ',
+                    link: '/sdasd'
+                }
+            ]
+        },
+        {
+            title: 'Начисления',
+            icon: 'graph'
+        },
+        {
+            title: 'Заявки',
+            icon: 'star'
+        },
+        {
+            title: 'Обращения',
+            icon: 'message'
+        },
+        {
+            title: 'Документы',
+            icon: 'packet'
+        }
+    ];
 
     navElemenet = null;
 
@@ -87,37 +120,7 @@ export default class Nav extends Component {
                             </div>
                         </div>
                         <div className="block menu">
-                            <div className="element m_element">
-                                <div className="icon icon_home"/>
-                                <div className="text">Счётчики</div>
-                                <div className="dropdown_button"/>
-                                <div className="dropdown_menu">
-                                    <div className="ddm_element">
-                                        <div className="text">
-                                            <ActiveLink to="meters-data">Показания</ActiveLink>
-                                        </div>
-                                    </div>
-                                    <div className="ddm_element">
-                                        <div className="text">Анализ</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="element m_element">
-                                <div className="icon icon_graph"/>
-                                <div className="text">Начисления</div>
-                            </div>
-                            <div className="element m_element">
-                                <div className="icon icon_star"/>
-                                <div className="text">Обращения</div>
-                            </div>
-                            <div className="element m_element">
-                                <div className="icon icon_message"/>
-                                <div className="text">Обращения</div>
-                            </div>
-                            <div className="element m_element">
-                                <div className="icon icon_packet"/>
-                                <div className="text">Документы</div>
-                            </div>
+                            {this.items.map(item => <MenuItem key={item.title} item={item}/>)}
                         </div>
                         <div className="block menu align_end">
                             <div className="element m_element">

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 
+import { updateTitle } from '../utils/app';
 import Protected from './common/Protected';
 import EmailField from './profile/EmailField';
 import PhoneField from './profile/PhoneField';
@@ -13,6 +14,8 @@ class Profile extends Component {
 
     constructor(props) {
         super(props);
+
+        updateTitle('Профиль');
 
         this.accountStore = this.props.store.accountStore;
     }

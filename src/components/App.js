@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import DevTools from 'mobx-react-devtools';
 
 import Layout from './common/Layout';
@@ -12,9 +12,12 @@ export default class App extends Component {
     render() {
         return (
             <Layout>
-                <Route exact path='/' component={Profile}/>
-                <Route exact path='/meters-data' component={MetersData}/>
-                <Route exact path='/login' component={Login}/>
+                <Switch>
+                    <Route exact path='/' component={Profile}/>
+                    <Route exact path='/meters-data' component={MetersData}/>
+                    <Route exact path='/login' component={Login}/>
+                    <Redirect to='/'/>
+                </Switch>
             </Layout>
         );
     }

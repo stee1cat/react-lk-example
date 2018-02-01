@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react';
 import validator from 'validator';
 import MobxReactForm from 'mobx-react-form';
 
+import { updateTitle } from '../utils/app';
 import { classnames } from '../utils/styles';
 import { required } from '../utils/validators';
 import PopupWithButton from './common/PopupWithButton';
@@ -20,7 +21,7 @@ export default class Login extends Component {
     constructor(props) {
         super(props);
 
-        document.title = 'Вход';
+        updateTitle('Вход');
 
         this.appStore = this.props.store.appStore;
         this.createForm();
