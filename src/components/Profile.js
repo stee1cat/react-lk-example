@@ -37,10 +37,7 @@ class Profile extends Component {
                                 <div className="cwd_description bold">Л/С</div>
                                 <div className="cwd_content bold">{personalData.ls}</div>
                             </div>
-                            <div className="content_with_description">
-                                <div className="cwd_description bold">Номер телефона</div>
-                                <PhoneField value={personalData.phone}/>
-                            </div>
+                            <PhoneField/>
                             <div className="content_with_description">
                                 <div className="cwd_description bold">E-mail</div>
                                 <EmailField value={personalData.email}/>

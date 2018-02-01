@@ -26,10 +26,12 @@ export default class PopupWithButton extends Component {
         this.onCloseHandler = this.onCloseHandler.bind(this);
     }
 
-    onClickHandler() {
+    onClickHandler(e) {
         this.setState({
             opened: true
         });
+
+        e.preventDefault();
     }
 
     onCloseHandler() {

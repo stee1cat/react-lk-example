@@ -1,9 +1,11 @@
-import { inject } from 'mobx-react/index';
+import { inject, observer } from 'mobx-react/index';
 import React, { Component } from 'react';
 
 import Field from './Field';
+import { isPhone, required } from '../../utils/validators';
 
 @inject('store')
+@observer
 export default class PhoneField extends Component {
 
     constructor(props) {
@@ -18,9 +20,21 @@ export default class PhoneField extends Component {
     }
 
     render() {
-        let { value } = this.props;
+        const { personalData } = this.accountStore.info;
 
-        return <Field value={value} onChange={this.onChange}/>
+        let formatter = {
+            prefix: '+7',
+            delimiters: [' ', ' ', '-', '-'],
+            numericOnly: true,
+            blocks: [2, 3, 3, 2, 2]
+        };
+
+        return (
+            <div className="content_with_description">
+                <div className="cwd_description bold">Номер телефона</div>
+                <Field value={personalData.phone} onChange={this.onChange} validators={[required, isPhone]} formatter={formatter}/>
+            </div>
+        )
     }
 
 }

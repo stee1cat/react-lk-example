@@ -22,18 +22,26 @@ input{
       border: 1px solid $filling_gray_dark;
       color: $font_color_light;
     }
+
+    &.has-error, &.has-error:focus {
+      border: 1px solid $red;
+    }
   }
   border-radius: 3px;
   width: 225px;
   display: block;
 
-  &.has-error {
-    border: 1px solid $red;
-  }
-
   &.full_width{
     width: 100%;
   }
+}
+
+.error-message {
+  position: absolute;
+  font-size: 14px;
+  margin-top: 5px;
+  font-weight: normal;
+  color: $red;
 }
 
 textarea{
