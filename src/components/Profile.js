@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 
-import PopupWithButton from './common/PopupWithButton';
 import Protected from './common/Protected';
 import EmailField from './profile/EmailField';
 import PhoneField from './profile/PhoneField';
 import Room from './profile/Room';
+import UpdatePassword from './profile/UpdatePassword';
 
 @inject('store')
 @observer
@@ -39,41 +39,7 @@ class Profile extends Component {
                             </div>
                             <PhoneField/>
                             <EmailField/>
-                            <div className="content_with_description">
-                                <div className="cwd_description bold">Пароль</div>
-                                <div className="cwd_content">
-                                    <div className="inlineblock input_with_icon lock">
-                                        <input type="text" disabled placeholder="******"/>
-                                    </div>
-                                    <div className="sub_container_relative">
-                                        <button className="active">Сгенерировать новый</button>
-                                        <div className="popup not_visible">
-                                            <div className="p_title">Сгенерировать новый</div>
-                                            <div className="p_content">
-                                                <div className="content_with_icon">
-                                                    <div className="cwi_icon icon_p_good"/>
-                                                    <div className="cwi_content">
-                                                        Пароль успешно отправлен
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="popup not_visible">
-                                            <div className="p_title">Сгенерировать новый</div>
-                                            <div className="p_content">
-                                                <div className="text">Пароль будет отправлен на ваш почтовый ящик</div>
-                                                <button className="submit">Получить</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <PopupWithButton btn={{
-                                                        label: 'Восстановить пароль'
-                                                     }}
-                                                     popup={{
-                                                         title: 'Восстановить пароль',
-                                                         content: 'Вы можете в вашей УК'}}/>
-                                </div>
-                            </div>
+                            <UpdatePassword/>
                         </div>
                     </div>
                     <Room data={myRoom}/>

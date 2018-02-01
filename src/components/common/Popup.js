@@ -51,7 +51,7 @@ export default class Popup extends Component {
     }
 
     render() {
-        let { title, content, titleAlign } = this.props;
+        let { title, children, titleAlign } = this.props;
         let { opened } = this.state;
         let classes = classnames({
             'popup': true,
@@ -62,12 +62,7 @@ export default class Popup extends Component {
             <div className={classes}>
                 <div className="p_title">{title}</div>
                 <div className="p_content">
-                    <div className="content_with_icon">
-                        <div className="cwi_icon icon_p_info"/>
-                        <div className="cwi_content">
-                            {content}
-                        </div>
-                    </div>
+                    {children}
                 </div>
             </div>
         );

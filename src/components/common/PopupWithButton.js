@@ -5,14 +5,10 @@ import Popup from '../common/Popup';
 export default class PopupWithButton extends Component {
 
     static defaultProps = {
-        btn: {
-            label: '',
-            className: ''
-        },
-        popup: {
-            title: '',
-            content: ''
-        }
+        btnClass: '',
+        label: '',
+        onClose: () => null,
+        opened: false
     };
 
     state = {
@@ -24,6 +20,20 @@ export default class PopupWithButton extends Component {
 
         this.onClickHandler = this.onClickHandler.bind(this);
         this.onCloseHandler = this.onCloseHandler.bind(this);
+    }
+
+    componentDidMount() {
+        this.setState({
+            opened: this.props.opened
+        });
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.opened !== this.props.opened) {
+            this.setState({
+                opened: nextProps.opened
+            });
+        }
     }
 
     onClickHandler(e) {
@@ -38,19 +48,20 @@ export default class PopupWithButton extends Component {
         this.setState({
             opened: false
         });
+
+        this.props.onClose();
     }
 
     render() {
-        let { btn, popup } = this.props;
+        let { btnClass, label, children } = this.props;
         let { opened } = this.state;
 
         return (
             <div className="sub_container_relative">
-                <button className={btn.className} onClick={this.onClickHandler}>{btn.label}</button>
-                <Popup title={popup.title}
-                       content={popup.content}
-                       opened={opened}
-                       onClose={this.onCloseHandler}/>
+                <button className={btnClass} onClick={this.onClickHandler}>{label}</button>
+                <Popup title={label} opened={opened} onClose={this.onCloseHandler}>
+                    {children}
+                </Popup>
             </div>
         );
     }

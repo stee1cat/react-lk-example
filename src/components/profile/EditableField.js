@@ -75,13 +75,16 @@ export default class EditableField extends Component {
 
     onSuccess() {
         let { mode } = this.state;
+        let { value: initialValue, name } = this.props;
         let form = this.form;
 
         if (mode === Mode.Edit) {
             if (form.isValid) {
-                let value = form.$(this.props.name).value;
+                let value = form.$(name).value;
 
-                this.emitChange(value);
+                if (value !== initialValue) {
+                    this.emitChange(value);
+                }
 
                 this.setState({
                     mode: Mode.View

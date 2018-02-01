@@ -122,13 +122,14 @@ export default class Login extends Component {
                 </div>
                 <button className="active full_width" disabled={disabled}>Войти</button>
                 <div className="border_bottom_divider"/>
-                <PopupWithButton btn={{
-                                    label: 'Где получить пароль?',
-                                    className: 'full_width'
-                                 }}
-                                 popup={{
-                                     title: 'Где получить пароль?',
-                                     content: 'Пароль вы можете получить в вашей управляющей компании'}}/>
+                <PopupWithButton btnClass="full_width" label="Где получить пароль?">
+                    <div className="content_with_icon">
+                        <div className="cwi_icon icon_p_info"/>
+                        <div className="cwi_content">
+                            Пароль вы можете получить в вашей управляющей компании
+                        </div>
+                    </div>
+                </PopupWithButton>
             </form>
         );
     }
