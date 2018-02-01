@@ -1,7 +1,8 @@
 import { inject } from 'mobx-react/index';
 import React, { Component } from 'react';
 
-import Field from './Field';
+import { isEmail, required } from '../../utils/validators';
+import EditableField from './EditableField';
 
 @inject('store')
 export default class EmailField extends Component {
@@ -18,9 +19,14 @@ export default class EmailField extends Component {
     }
 
     render() {
-        let { value } = this.props;
+        const { personalData } = this.accountStore.info;
 
-        return <Field value={value} onChange={this.onChange}/>
+        return (
+            <div className="content_with_description">
+                <div className="cwd_description bold">E-mail</div>
+                <EditableField value={personalData.email} onChange={this.onChange} validators={[required, isEmail]}/>
+            </div>
+        );
     }
 
 }

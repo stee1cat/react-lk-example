@@ -3,6 +3,7 @@ import MobxReactForm from 'mobx-react-form';
 import { observer } from 'mobx-react/index';
 import React, { Component, Fragment } from 'react';
 import validator from 'validator';
+
 import { classnames } from '../../utils/styles';
 
 const Mode = {
@@ -11,7 +12,7 @@ const Mode = {
 };
 
 @observer
-export default class Field extends Component {
+export default class EditableField extends Component {
 
     static defaultProps = {
         name: 'value',
@@ -28,6 +29,8 @@ export default class Field extends Component {
         super(props);
 
         this.onEdit = this.onEdit.bind(this);
+        this.setContainer = this.setContainer.bind(this);
+        this.onBodyClickHandler = this.onBodyClickHandler.bind(this);
 
         this.createForm();
     }
@@ -44,7 +47,7 @@ export default class Field extends Component {
             }
         ];
         let hooks = {
-            onSuccess: this.save.bind(this)
+            onSuccess: this.onSuccess.bind(this)
         };
         let plugins = {
             vjf: validator
@@ -54,6 +57,10 @@ export default class Field extends Component {
         };
 
         this.form = new MobxReactForm({fields}, {hooks, plugins, options});
+    }
+
+    setContainer(container) {
+        this.container = container;
     }
 
     onEdit(e) {
@@ -66,7 +73,7 @@ export default class Field extends Component {
         e.preventDefault();
     }
 
-    async save() {
+    onSuccess() {
         let { mode } = this.state;
         let form = this.form;
 
@@ -79,8 +86,6 @@ export default class Field extends Component {
                 this.setState({
                     mode: Mode.View
                 });
-            } else {
-                console.log('invalid');
             }
         }
     }
@@ -92,20 +97,20 @@ export default class Field extends Component {
     }
 
     componentDidMount() {
-        let { value } = this.props;
-
-        if (value) {
-            this.setState({
-                value
-            });
-        }
+        document.body.addEventListener('click', this.onBodyClickHandler);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.props.value) {
+    componentWillUnmount() {
+        document.body.removeEventListener('click', this.onBodyClickHandler);
+    }
+
+    onBodyClickHandler({target}) {
+        if (!this.container.contains(target)) {
             this.setState({
-                value: nextProps.value
+                mode: Mode.View
             });
+
+            this.form.reset();
         }
     }
 
@@ -120,7 +125,7 @@ export default class Field extends Component {
         });
 
         return (
-            <form className="cwd_content bold" onSubmit={form.onSubmit}>
+            <form className="cwd_content bold" onSubmit={form.onSubmit} ref={this.setContainer}>
                 {
                     mode === Mode.View ? <span className="inlineblock">{value}</span> :
                         <Fragment>

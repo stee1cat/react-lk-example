@@ -38,10 +38,7 @@ class Profile extends Component {
                                 <div className="cwd_content bold">{personalData.ls}</div>
                             </div>
                             <PhoneField/>
-                            <div className="content_with_description">
-                                <div className="cwd_description bold">E-mail</div>
-                                <EmailField value={personalData.email}/>
-                            </div>
+                            <EmailField/>
                             <div className="content_with_description">
                                 <div className="cwd_description bold">Пароль</div>
                                 <div className="cwd_content">

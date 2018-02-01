@@ -1,7 +1,7 @@
 import { inject, observer } from 'mobx-react/index';
 import React, { Component } from 'react';
 
-import Field from './Field';
+import EditableField from './EditableField';
 import { isPhone, required } from '../../utils/validators';
 
 @inject('store')
@@ -32,7 +32,7 @@ export default class PhoneField extends Component {
         return (
             <div className="content_with_description">
                 <div className="cwd_description bold">Номер телефона</div>
-                <Field value={personalData.phone} onChange={this.onChange} validators={[required, isPhone]} formatter={formatter}/>
+                <EditableField value={personalData.phone} onChange={this.onChange} validators={[required, isPhone]} formatter={formatter}/>
             </div>
         )
     }
