@@ -19,6 +19,7 @@
 
     & > .year-text {
       font-size: $font_size_30;
+      margin-left: 10px;
     }
 
     & > .years_container {
@@ -153,6 +154,9 @@
             border-image: linear-gradient(to top, $divider_gray, transparentize($divider_gray, 1)) 1 100%;
             flex-basis: 0;
 
+            &:first-child {
+              border-left: none;
+            }
 
             &:last-child {
               border-right: none;

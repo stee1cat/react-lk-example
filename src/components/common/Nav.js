@@ -20,30 +20,32 @@ export default class Nav extends Component {
                 {
                     title: 'Показания',
                     link: '/meters-data'
-                },
-                {
-                    title: 'Анализ',
-                    link: '/sdasd'
                 }
+                //,
+                //{
+                //    title: 'Анализ',
+                //    link: '/sdasd'
+                //}
             ]
         },
         {
             title: 'Начисления',
             link: '/accurals',
             icon: 'graph'
-        },
-        {
-            title: 'Заявки',
-            icon: 'star'
-        },
-        {
-            title: 'Обращения',
-            icon: 'message'
-        },
-        {
-            title: 'Документы',
-            icon: 'packet'
         }
+        //,
+        //{
+        //    title: 'Заявки',
+        //    icon: 'star'
+        //},
+        //{
+        //    title: 'Обращения',
+        //    icon: 'message'
+        //},
+        //{
+        //    title: 'Документы',
+        //    icon: 'packet'
+        //}
     ];
 
     navElemenet = null;
