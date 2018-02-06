@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import Accurals from './Accurals';
 import DevTools from 'mobx-react-devtools';
 
 import Layout from './common/Layout';
+import Accurals from './Accurals';
 import MetersData from './Meters';
 import Profile from './Profile';
 import Login from './Login';

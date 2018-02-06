@@ -44,21 +44,20 @@ export default class MenuItem extends Component {
         if (item.link)
         {
             return (
-                <Route path={currentPath} children={({match}) => (
+                <Route path={item.link} children={({match}) => (
                     <Link className={classnames({'element m_element': true, 'active': match})} to={item.link}>
                         <div className={`icon icon_${item.icon}`}/>
                         <div className="text">{item.title}</div>
                     </Link>
-                )}/>
+                )
+                }/>
             );
         }
         return (
-            <Route path={currentPath} children={({match}) => (
-                <div className={classnames({'element m_element': true, 'active': match})}>
-                    <div className={`icon icon_${item.icon}`}/>
-                    <div className="text">{item.title}</div>
-                </div>
-            )}/>
+            <div className={classnames({'element m_element': true})}>
+                <div className={`icon icon_${item.icon}`}/>
+                <div className="text">{item.title}</div>
+            </div>
         );
 
     }
