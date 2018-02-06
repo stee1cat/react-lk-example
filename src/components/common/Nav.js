@@ -29,6 +29,7 @@ export default class Nav extends Component {
         },
         {
             title: 'Начисления',
+            link: '/accurals',
             icon: 'graph'
         },
         {

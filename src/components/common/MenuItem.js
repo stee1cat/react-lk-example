@@ -14,31 +14,53 @@ export default class MenuItem extends Component {
                 .join('|')})`;
         }
 
+        if (item.children)
+        {
+            return (
+                <Route path={currentPath} children={({match}) => (
+                    <div className={classnames({'element m_element': true, 'active': match})}>
+                        <div className={`icon icon_${item.icon}`}/>
+                        <div className="text">{item.title}</div>
+                        {item.children && (
+                            <Fragment>
+                                <div className="dropdown_button"/>
+                                <div className="dropdown_menu">
+                                    {item.children.map(child => (
+                                        <Route path={child.link} key={child.title} exact children={({match}) => (
+                                            <div className={classnames({'ddm_element': true, 'active': match})}>
+                                                <Link className="text" to={child.link}>
+                                                    {child.title}
+                                                </Link>
+                                            </div>
+                                        )}/>
+                                    ))}
+                                </div>
+                            </Fragment>
+                        )}
+                    </div>
+                )}/>
+            );
+        }
+        if (item.link)
+        {
+            return (
+                <Route path={currentPath} children={({match}) => (
+                    <Link className={classnames({'element m_element': true, 'active': match})} to={item.link}>
+                        <div className={`icon icon_${item.icon}`}/>
+                        <div className="text">{item.title}</div>
+                    </Link>
+                )}/>
+            );
+        }
         return (
             <Route path={currentPath} children={({match}) => (
                 <div className={classnames({'element m_element': true, 'active': match})}>
                     <div className={`icon icon_${item.icon}`}/>
                     <div className="text">{item.title}</div>
-                    {item.children && (
-                        <Fragment>
-                            <div className="dropdown_button"/>
-                            <div className="dropdown_menu">
-                                {item.children.map(child => (
-                                    <Route path={child.link} key={child.title} exact children={({match}) => (
-                                        <div className={classnames({'ddm_element': true, 'active': match})}>
-                                            <Link className="text" to={child.link}>
-                                                {child.title}
-                                            </Link>
-                                        </div>
-                                    )}/>
-                                ))}
-                            </div>
-                        </Fragment>
-                    )}
                 </div>
             )}/>
-
         );
+
     }
 
 }
