@@ -121,4 +121,21 @@ export class RestApi {
         });
     }
 
+    static async getAccrualYears() {
+        return RestApi.get('ZKU/years');
+    }
+
+    static async getAccrualPeriodsForYear(year) {
+        return RestApi.post('ZKU/periods', {
+            year
+        });
+    }
+
+    static async getExtendAccuralInfoForYearPeriod(year, period) {
+        return RestApi.post('ZKU/period', {
+            year,
+            period
+        });
+    }
+
 }
