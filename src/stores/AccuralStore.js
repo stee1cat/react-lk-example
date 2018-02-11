@@ -20,8 +20,15 @@ export default class AccuralStore
                 active: sYear === year
             })
         });
+    }
 
-        window.test = this.years;
+    async loadYear(year)
+    {
+        return await RestApi.getAccrualPeriodsForYear(year);
+    }
 
+    async loadPeriod(period)
+    {
+        return await RestApi.getExtendAccuralInfoForYearPeriod(period.split('-')[0], period);
     }
 }
