@@ -10,6 +10,11 @@
     display: none;
   }
 
+  & > .text > .title_text
+  {
+    font-size: 30px;
+  }
+
   & .trigger {
     cursor: pointer;
     color: $blue;

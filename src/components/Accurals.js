@@ -1,32 +1,46 @@
-import React, { Component } from 'react';
+import {inject, observer} from 'mobx-react/index';
+import {observable} from 'mobx';
+import React, {Component} from 'react';
 
-import { updateTitle } from '../utils/app';
+import {updateTitle} from '../utils/app';
+import YearSelector from './accural/yearSelector';
 import Protected from './common/Protected';
 
+@inject('store')
+@observer
 class Accurals extends Component {
+
+    @observable state = {
+        selectedYear: (() => {
+            let date = new Date();
+            return date.getFullYear();
+        })()
+    };
+    @observable periods = [];
 
     constructor(props) {
         super(props);
 
         updateTitle('Начисления');
+        this.store = this.props.store.accuralStore;
+    }
+
+    async componentWillMount() {
+        await this.store.load(this.state.selectedYear);
+    }
+
+    async onChange(year)
+    {
+        console.log(year.year);
+        this.state.selectedYear = year.year;
     }
 
     render() {
+
         return (
             <div className="main_container">
                 <div className="headline">
-                    <input className="not_visible" type="checkbox" id="year-selector"/>
-                    <div className="text">Начисления в
-                    <label className="trigger" htmlFor="year-selector">
-                        <span className="year-text">2017 году </span>
-                        <div className="icon"></div>
-                        <div className="years_container">
-                            <div className="year">2015</div>
-                            <div className="year">2016</div>
-                            <div className="year active">2017</div>
-                        </div>
-                    </label>
-                    </div>
+                    <YearSelector years={this.store.years} state={this.state} changeCb={this.onChange.bind(this)}/>
                 </div>
                 <div className="accurals_page">
                     <div className="content_block">

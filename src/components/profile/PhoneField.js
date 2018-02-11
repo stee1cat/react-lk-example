@@ -4,8 +4,8 @@ import React, { Component } from 'react';
 import EditableField from './EditableField';
 import { isPhone, required } from '../../utils/validators';
 
-@inject('store')
 @observer
+@inject('store')
 export default class PhoneField extends Component {
 
     constructor(props) {
