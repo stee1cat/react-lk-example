@@ -107,7 +107,7 @@ export default class Accural extends Component
                             {this.moneyToHTML(accural.paid, accural.paid === accural.toPay)}
                         </div>
                     </div>
-                    <AccuralExtInfo info={this.extInfo}/>
+                    <AccuralExtInfo info={this.extInfo} id={accural.period}/>
                 </div>
             </Fragment>
         );

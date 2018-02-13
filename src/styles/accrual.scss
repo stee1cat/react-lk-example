@@ -151,13 +151,21 @@
           width: 100%;
           background-color: $white;
 
+          @media all and (max-width: 1170px){
+            flex-wrap: wrap;
+          }
+
           & > .element{
             flex-grow: 1;
             padding: 15px 28px;
             border-width: 1px;
             border-style: solid;
             border-image: linear-gradient(to top, $divider_gray, transparentize($divider_gray, 1)) 1 100%;
-            flex-basis: 0;
+
+            @media all and (max-width: 1170px){
+              width: 50%;
+              border: none;
+            }
 
             &:first-child {
               border-left: none;
@@ -172,12 +180,20 @@
               color: $font_color_light;
               text-align: left;
               text-transform: uppercase;
+              @media all and (max-width: 1170px){
+                text-align: center;
+              }
+
             }
 
             & > .value {
               color: $font_color_dark;
               margin-top: 5px;
               text-align: left;
+
+              @media all and (max-width: 1170px){
+                text-align: center;
+              }
 
               &.success {
                 color: $green;
@@ -233,6 +249,35 @@
 
           & > .details_table {
             width: 100%;
+
+
+            & > .ext_trigger {
+              display: none;
+            }
+
+            @media all and (max-width: 1170px){
+              & > input[type='checkbox']:not(:checked) + label + .row {
+                display: none;
+              }
+
+              & > .ext_trigger {
+                display: block;
+                padding: 15px 0 0 28px;
+                font-weight: 600;
+              }
+
+              & > input[type='checkbox']:not(:checked) + .ext_trigger:not(:last-of-type) {
+                border-bottom: 1px solid $divider_gray;
+                padding-bottom: 15px;
+              }
+
+              & > .ext_trigger:last-child {
+                border: none;
+                padding-bottom: 0;
+              }
+
+            }
+
             & > .row {
               display: flex;
               flex-direction: row;
@@ -240,8 +285,16 @@
               padding: 12px 0px;
               color: $font_color_light;
 
+              @media all and (max-width: 1170px){
+                flex-direction: column;
+                align-items: flex-end;
+              }
+
               &.header {
                 color: $font_color_light;
+                @media all and (max-width: 1170px){
+                  display: none;
+                }
               }
 
               &:not(:last-child) {
@@ -253,13 +306,28 @@
                 flex-grow: 1;
                 flex-basis: 0;
                 color: $font_color_light;
+                position: relative;
+
+                @media all and (max-width: 1170px){
+                  width: 50%;
+                  padding-left: 10px;
+
+                  &::before
+                  {
+                    content: attr(data-info);
+                    position: absolute;
+                    right: calc(100% + 10px);
+                  }
+                }
 
                 &:first-child {
                   flex-grow: 4;
                   padding-left: 28px;
+
+                  @media all and (max-width: 1170px){
+                    display: none;
+                  }
                 }
-
-
               }
 
               &:not(.header) > .cell:first-child,

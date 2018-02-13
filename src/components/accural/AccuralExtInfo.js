@@ -1,5 +1,5 @@
 import {observer} from 'mobx-react/index';
-import React, {Component} from 'react';
+import React, {Fragment, Component} from 'react';
 
 @observer
 export default class AccuralExtInfo extends Component
@@ -12,6 +12,7 @@ export default class AccuralExtInfo extends Component
     render()
     {
         let info = this.props.info;
+        let id = this.props.id;
 
         return (
             <div className="details_container">
@@ -25,17 +26,23 @@ export default class AccuralExtInfo extends Component
                         <div className="cell">Перерасчёт</div>
                         <div className="cell">Итого</div>
                     </div>
-                    {info.map((it) => {
+                    {info.map((it, i) => {
                         return (
-                            <div key={it.zkhService} className="row">
-                                <div className="cell">{it.zkhService}</div>
-                                <div className="cell">{it.tariff}</div>
-                                <div className="cell">{it.rate}</div>
-                                <div className="cell">{it.accrued}</div>
-                                <div className="cell">{it.exemption}</div>
-                                <div className="cell">{it.recalculation}</div>
-                                <div className="cell">{it.total}</div>
-                            </div>
+                            <Fragment key={it.zkhService}>
+                                <input className="not_visible" type="checkbox" id={id + '-' + i} />
+                                <label htmlFor={id + '-' + i} className="ext_trigger">
+                                    {it.zkhService}
+                                </label>
+                                <div className="row">
+                                    <div data-info="Услуга ЖКХ" className="cell">{it.zkhService}</div>
+                                    <div data-info="Тариф" className="cell">{it.tariff}</div>
+                                    <div data-info="Расход" className="cell">{it.rate}</div>
+                                    <div data-info="Начислено" className="cell">{it.accrued}</div>
+                                    <div data-info="Льгота" className="cell">{it.exemption}</div>
+                                    <div data-info="Перерасчёт" className="cell">{it.recalculation}</div>
+                                    <div data-info="Итого" className="cell">{it.total}</div>
+                                </div>
+                            </Fragment>
                         );
                     })}
                 </div>
