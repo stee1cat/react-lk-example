@@ -42,6 +42,15 @@
         a {
           text-decoration: none;
         }
+
+        a.profile_link {
+          display: block;
+          text-transform: uppercase;
+          padding-bottom: 25px;
+          text-align: right;
+          font-weight: 600;
+          color: $blue;
+        }
       }
 
       &.align_end {

@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react';
 
 import { classnames } from '../../utils/styles';
 import MenuItem from './MenuItem';
+import {Link} from 'react-router-dom';
 
 @inject('store')
 @observer
@@ -120,6 +121,11 @@ export default class Nav extends Component {
                                     <div className="cwd_description bold">Л/С</div>
                                     <div className="cwd_content bold">{personalData.ls}</div>
                                 </div>
+                            </div>
+                            <div className="element">
+                                <Link className="profile_link" to="/">
+                                    Профиль
+                                </Link>
                             </div>
                         </div>
                         <div className="block menu">
