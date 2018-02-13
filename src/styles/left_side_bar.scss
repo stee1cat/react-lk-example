@@ -22,6 +22,10 @@ label[for='left-side-bar-check'] {
   @media all and (min-width: 1701px) {
     display: none;
   }
+
+  @media all and (max-width: 1170px){
+    right: 0;
+  }
 }
 
 #left-side-bar-check[type='checkbox']:checked ~ label[for='left-side-bar-check']
