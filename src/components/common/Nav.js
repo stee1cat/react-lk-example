@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { inject, observer } from 'mobx-react';
 
-import { classnames } from '../../utils/styles';
 import MenuItem from './MenuItem';
 import {Link} from 'react-router-dom';
 
@@ -14,20 +13,25 @@ export default class Nav extends Component {
     };
 
     items = [
+        //{
+        //    title: 'Счётчики',
+        //    icon: 'home',
+        //    children: [
+        //        {
+        //            title: 'Показания',
+        //            link: '/meters-data'
+        //        }
+        //        //,
+        //        //{
+        //        //    title: 'Анализ',
+        //        //    link: '/sdasd'
+        //        //}
+        //    ]
+        //},
         {
-            title: 'Счётчики',
+            title: 'Показания',
             icon: 'home',
-            children: [
-                {
-                    title: 'Показания',
-                    link: '/meters-data'
-                }
-                //,
-                //{
-                //    title: 'Анализ',
-                //    link: '/sdasd'
-                //}
-            ]
+            link: '/meters-data'
         },
         {
             title: 'Начисления',
@@ -49,8 +53,6 @@ export default class Nav extends Component {
         //}
     ];
 
-    navElemenet = null;
-
     constructor(props) {
         super(props);
 
@@ -58,53 +60,20 @@ export default class Nav extends Component {
         this.accountStore = this.props.store.accountStore;
 
         this.logout = this.logout.bind(this);
-        this.setNavElement = this.setNavElement.bind(this);
-
-        this.onBodyClickHandler = this.onBodyClickHandler.bind(this);
-        this.onButtonClickHandler = this.onButtonClickHandler.bind(this);
     }
 
     logout() {
         this.appStore.logout();
     }
 
-    setNavElement(element) {
-        this.navElemenet = element;
-    }
-
-    onBodyClickHandler({target}) {
-        if (!target.contains(this.navElemenet)) {
-            this.setState({
-                opened: false
-            });
-        }
-    }
-
-    onButtonClickHandler() {
-        this.setState(({opened}) => ({
-            opened: !opened
-        }));
-    }
-
-    componentDidMount() {
-        document.body.addEventListener('click', this.onBodyClickHandler);
-    }
-
-    componentWillUnmount() {
-        document.body.removeEventListener('click', this.onBodyClickHandler);
-    }
-
     render() {
         const { personalData } = this.accountStore.info;
         const { authenticated, authenticating } = this.appStore;
-        const classes = classnames({
-            'left_side_bar': true,
-            'not_visible': !this.state.opened
-        });
 
         return (
             <Fragment>
-                <nav className={classes} ref={this.setNavElement}>
+                <input className="not_visible" type="checkbox" id="left-side-bar-check"/>
+                <nav className="left_side_bar">
                     <div className="base">
                         <div className="block border_bottom_divider">
                             <div className="element account_name">
@@ -139,9 +108,7 @@ export default class Nav extends Component {
                         </div>
                     </div>
                 </nav>
-                <div onClick={this.onButtonClickHandler} style={{display: 'inline-block'}}>
-                    navigation
-                </div>
+                <label htmlFor="left-side-bar-check"/>
             </Fragment>
         );
     }

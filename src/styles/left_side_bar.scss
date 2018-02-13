@@ -1,6 +1,45 @@
 @import "variables";
 
+#left-side-bar-check{
+  position: fixed;
+  z-index: 100;
+  right: 0;
+}
+
+#left-side-bar-check[type='checkbox']:checked + .left_side_bar {
+  display: block;
+}
+
+label[for='left-side-bar-check'] {
+  width: 40px;
+  height: 40px;
+  background-color: $blue;
+  display: block;
+  position: fixed;
+  float: left;
+  cursor: pointer;
+
+  @media all and (min-width: 1701px) {
+    display: none;
+  }
+}
+
+#left-side-bar-check[type='checkbox']:checked ~ label[for='left-side-bar-check']
+{
+  background-color: transparentize($filling_super_dark, 0.1);
+  width: calc(100% - 272px);
+
+  height: 100vh;
+  left: 272px;
+  z-index: 10;
+}
+
 .left_side_bar {
+
+  @media all and (max-width: 1700px) {
+    display: none;
+  }
+
   position: fixed;
   top: 0;
   left: 0;
@@ -59,4 +98,3 @@
     }
   }
 }
-
