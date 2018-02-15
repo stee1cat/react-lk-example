@@ -60,7 +60,7 @@ export default class ScaleField extends Component {
         return (
             <div className="input_container">
                 <div className="input_with_units">
-                    <NumericInput value={value} min={0} max={999999} strict={true} precision={precision} onChange={this.onChange}/>
+                    <NumericInput value={value} min={0} max={999999} strict={true} precision={precision} onChange={this.onChange} placeholder={scale.title}/>
                     <div className="units">
                         <Unit value={scale.unit}/>
                     </div>

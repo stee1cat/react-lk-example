@@ -48,6 +48,30 @@ export default class History extends Component {
             'inactive': (ranges.length - 1) === selected
         });
 
+        let rs = [];
+
+        if (range)
+        {
+            range.data.forEach((scale) => {
+                scale.forEach((s, i) => {
+                    let r = rs[i];
+
+                    if (!r)
+                    {
+                        r = {
+                            label: s.label,
+                            values: [],
+                            unit: s.unit
+                        };
+
+                        rs[i] = r;
+                    }
+
+                    r.values.push(s.value);
+                });
+            });
+        }
+
         return (
             <div className="history_container">
             {range && (
@@ -57,7 +81,8 @@ export default class History extends Component {
                         <div className="year">{range.label}</div>
                         <div className={arrowRight} onClick={() => this.handleClick(1)}/>
                     </div>
-                    {range.data.map((scale, idx) => <HistoryScale key={idx} values={scale} showLabel={!idx}/>)}
+                    {/*{range.data.map((scale, idx) => <HistoryScale key={idx} values={scale} showLabel={!idx}/>)}*/}
+                    <HistoryScale values={rs}/>
                 </Fragment>
             )}
             </div>

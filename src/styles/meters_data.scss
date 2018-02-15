@@ -31,6 +31,10 @@
         &.header {
           background-color: $filling_gray;
 
+          @media all and (max-width: 1170px){
+            display: none;
+          }
+
           & > .cell {
             color: $font_color_light;
             text-transform: uppercase;
@@ -47,6 +51,10 @@
           border-bottom: none;
         }
 
+        @media all and (max-width: 1020px){
+          flex-direction: column;
+        }
+
         & > .cell {
           padding: 15px 28px;
           flex-shrink: 0;
@@ -56,19 +64,28 @@
 
           &:first-child {
             flex-grow: 2;
-            //background-color: #917AE4;
           }
           &:nth-child(2) {
             flex-grow: 0.7;
-            //background-color: mediumseagreen;
+            @media all and (max-width: 1170px){
+              display: none;
+            }
           }
           &:nth-child(3) {
             flex-grow: 1.3;
-            //background-color: #917AE4;
           }
           &:nth-child(4) {
             flex-grow: 1;
-            //background-color: mediumseagreen;
+          }
+
+          @media all and (max-width: 1020px){
+            &:first-child,
+            &:nth-child(2),
+            &:nth-child(3),
+            &:nth-child(4){
+              flex-grow: 0;
+              width: 100%;
+            }
           }
 
           & > .meter {
@@ -111,6 +128,11 @@
             }
 
             & > .rate_container {
+
+              @media all and (max-width: 1020px){
+                display: none;
+              }
+
               width: 80px;
               & > .rate {
                 color: $font_color_light;
@@ -237,12 +259,31 @@
               color: $font_color_light;
               text-align: center;
 
+
+
+              @media all and (max-width: 1020px){
+                width: calc(100% / 3);
+              }
+
+              @media all and (min-width: 1021px) and (max-width: 1170px){
+                width: calc(100% / 6);
+              }
+
               & > .month {
                 border-bottom: 1px solid $divider_gray;
+                @media all and (max-width: 1170px){
+                  border-bottom: none;
+                }
                 padding: 15px;
               }
 
               & > .value {
+                @media all and (max-width: 1170px){
+                  &:last-child {
+                    border-bottom: 1px solid $divider_gray;
+                  }
+
+                }
                 padding: 15px;
               }
             }

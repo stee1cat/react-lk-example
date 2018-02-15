@@ -10,16 +10,18 @@ export default class HistoryScale extends Component {
     };
 
     render() {
-        let { values, showLabel } = this.props;
+        let { values} = this.props;
 
         return (
             <div className="table_container">
                 {values.map(month => (
                     <div className="column" key={month.label}>
-                        {showLabel && <div className="month">{month.label}</div>}
-                        <div className="value">
-                            <Value value={month.value} unit={month.unit}/>
-                        </div>
+                        <div className="month">{month.label}</div>
+                        {month.values.map(val => (
+                            <div className="value">
+                                <Value value={val} unit={month.unit}/>
+                            </div>
+                            ))}
                     </div>
                 ))}
             </div>
