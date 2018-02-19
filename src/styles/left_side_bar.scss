@@ -58,7 +58,7 @@ label[for='left-side-bar-check'] {
   height: 100%;
   z-index: 9999;
   background-color: $filling_gray_light;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   .base {
     padding-top: 47px;
