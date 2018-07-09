@@ -1,0 +1,11 @@
+image: node:alpine
+
+pipelines:
+  default:
+    - step:
+      name: Build
+      script:
+        - npm install
+        - npm run build
+      artifacts:
+        - dist/**
