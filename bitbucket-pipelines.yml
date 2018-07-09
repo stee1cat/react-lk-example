@@ -5,7 +5,11 @@ pipelines:
     - step:
         name: Build
         script:
-          - npm install
+          - apk add --no-cache --virtual .build-deps make gcc g++ python wget ca-certificates
+          - wget -O /etc/apk/keys/sgerrand.rsa.pub https://raw.githubusercontent.com/sgerrand/alpine-pkg-glibc/master/sgerrand.rsa.pub
+          - wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.25-r0/glibc-2.25-r0.apk
+          - apk add glibc-2.25-r0.apk
+          - npm install --unsafe-perm
           - npm run build
         artifacts:
           - dist/**
