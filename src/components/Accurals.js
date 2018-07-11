@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 
 import {updateTitle} from '../utils/app';
 import AccuralBoard from './accural/AccuralBoard';
-import YearSelector from './accural/yearSelector';
+import YearSelector from './accural/YearSelector';
 import Protected from './common/Protected';
 
 @inject('store')
