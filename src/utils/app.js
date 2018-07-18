@@ -1,3 +1,3 @@
 export function updateTitle(title) {
-    document.title = `${title} | Личный кабинет`;
+  document.title = `${title} | Личный кабинет`;
 }

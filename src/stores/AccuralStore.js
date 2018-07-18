@@ -2,33 +2,30 @@ import { observable, action } from 'mobx';
 
 import { RestApi } from '../utils/api';
 
-export default class AccuralStore
-{
-    @observable years = [];
+export default class AccuralStore {
+  @observable years = [];
 
-    async load(sYear) {
+  constructor() {
+    this.api = RestApi;
+  }
 
-        this.setYears(await RestApi.getAccrualYears(), sYear);
-    }
+  async load(sYear) {
+    this.setYears(await this.api.getAccrualYears(), sYear);
+  }
 
-    @action setYears(years, sYear)
-    {
-        this.years = years.map((year, id) => {
-            return observable({
-                id,
-                year,
-                active: sYear === year
-            })
-        });
-    }
+  @action setYears(years, sYear) {
+    this.years = years.map((year, id) => observable({
+      id,
+      year,
+      active: sYear === year,
+    }));
+  }
 
-    async loadYear(year)
-    {
-        return await RestApi.getAccrualPeriodsForYear(year);
-    }
+  async loadYear(year) {
+    return this.api.getAccrualPeriodsForYear(year);
+  }
 
-    async loadPeriod(period)
-    {
-        return await RestApi.getExtendAccuralInfoForYearPeriod(period.split('-')[0], period);
-    }
+  async loadPeriod(period) {
+    return this.api.getExtendAccuralInfoForYearPeriod(period.split('-')[0], period);
+  }
 }

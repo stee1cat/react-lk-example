@@ -4,43 +4,45 @@ import { RestApi } from '../utils/api';
 import { LocalStorageKeys, localStorageService } from '../utils/local-storage';
 
 export default class AppStore {
+  @observable authenticated;
 
-    @observable authenticated;
-    @observable authenticating;
+  @observable authenticating;
 
-    constructor() {
-        this.authenticated = false;
-        this.authenticating = false;
+  constructor() {
+    this.authenticated = false;
+    this.authenticating = false;
 
-        this.localStorage = localStorageService;
+    this.localStorage = localStorageService;
+  }
+
+  get token() {
+    return this.localStorage.get(LocalStorageKeys.Token);
+  }
+
+  @action
+  async authenticate(login, password) {
+    this.authenticating = true;
+
+    try {
+      const { tokenId } = await RestApi.login(login, password);
+      this.localStorage.set(LocalStorageKeys.Token, tokenId);
+
+      this.authenticated = true;
+      this.authenticating = false;
+
+      return Promise.resolve();
+    } catch (error) {
+      this.authenticated = false;
+      this.authenticating = false;
+
+      return Promise.reject(error);
     }
+  }
 
-    get token() {
-        return this.localStorage.get(LocalStorageKeys.Token);
-    }
+  @action logout() {
+    this.authenticated = false;
+    this.authenticating = false;
 
-    @action async authenticate(login, password) {
-        this.authenticating = true;
-
-        try {
-            let data = await RestApi.login(login, password);
-            this.localStorage.set(LocalStorageKeys.Token, data.tokenId);
-
-            this.authenticated = true;
-            this.authenticating = false;
-        } catch (error) {
-            this.authenticated = false;
-            this.authenticating = false;
-
-            return Promise.reject(error);
-        }
-    }
-
-    @action logout() {
-        this.authenticated = false;
-        this.authenticating = false;
-
-        this.localStorage.remove(LocalStorageKeys.Token);
-    }
-
+    this.localStorage.remove(LocalStorageKeys.Token);
+  }
 }

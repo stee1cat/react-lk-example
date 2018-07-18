@@ -10,132 +10,129 @@ const AUTHORIZATION_HEADER = 'X-Rest-Token';
 let method = action => ENDPOINT + action.trim('/');
 
 function isAuthenticationError(e) {
-    return e && e.response && e.response.status === 401;
+  return e && e.response && e.response.status === 401;
 }
 
 export class RestApi {
+  static get config() {
+    return {
+      headers: {
+        [AUTHORIZATION_HEADER]: localStorageService.get(LocalStorageKeys.Token),
+      },
+    };
+  }
 
-    static get config() {
-        return {
-            headers: {
-                [AUTHORIZATION_HEADER]: localStorageService.get(LocalStorageKeys.Token)
-            }
-        };
+  static async onSuccess({ data }) {
+    return !data.code ? Promise.resolve(data.data) : Promise.reject({
+      ...data,
+      message: data.error,
+    });
+  }
+
+  static async onFailure(error) {
+    if (isAuthenticationError(error)) {
+      localStorageService.remove(LocalStorageKeys.Token);
     }
 
-    static async onSuccess(response) {
-        let data = response.data;
+    return Promise.reject(error);
+  }
 
-        return !data.code ? Promise.resolve(data.data) : Promise.reject({
-            ...data,
-            message: data.error
-        });
+  static async get(action, params = {}) {
+    try {
+      let data = await axios.get(method(action), {
+        params,
+        ...RestApi.config,
+      });
+
+      return RestApi.onSuccess(data);
+    } catch (error) {
+      return RestApi.onFailure(error);
     }
+  }
 
-    static async onFailure(error) {
-        if (isAuthenticationError(error)) {
-            localStorageService.remove(LocalStorageKeys.Token);
-        }
+  static async post(action, params) {
+    try {
+      const options = merge(RestApi.config, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
+      const data = await axios.post(method(action), querystring.stringify(params), options);
 
-        return Promise.reject(error);
+      return RestApi.onSuccess(data);
+    } catch (error) {
+      return RestApi.onFailure(error);
     }
+  }
 
-    static async get(action, params = {}) {
-        try {
-            let data = await axios.get(method(action), {
-                    params,
-                    ...RestApi.config
-                });
+  static async simplePost(action, params) {
+    try {
+      const data = await axios.post(method(action), querystring.stringify(params), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
 
-            return RestApi.onSuccess(data);
-        } catch (error) {
-            return RestApi.onFailure(error);
-        }
+      return RestApi.onSuccess(data);
+    } catch (error) {
+      return RestApi.onFailure(error);
     }
+  }
 
-    static async post(action, params) {
-        try {
-            let data = await axios.post(method(action), querystring.stringify(params), merge(RestApi.config, {
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                }));
+  static async login(username, password) {
+    return RestApi.simplePost('AuthService/login', {
+      ls: username,
+      pass: password,
+    });
+  }
 
-            return RestApi.onSuccess(data);
-        } catch (error) {
-            return RestApi.onFailure(error);
-        }
-    }
+  static async logout() {
+    // @todo: GET для логаута?
+    return RestApi.get('AuthService/logout');
+  }
 
-    static async simplePost(action, params) {
-        try {
-            let data = await axios.post(method(action), querystring.stringify(params), {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            });
+  static async getAccount() {
+    return RestApi.get('Ls/info');
+  }
 
-            return RestApi.onSuccess(data);
-        } catch (error) {
-            return RestApi.onFailure(error);
-        }
-    }
+  static async getMeters() {
+    return RestApi.get('Meter/info');
+  }
 
-    static async login(username, password) {
-        return RestApi.simplePost('AuthService/login', {
-            ls: username,
-            pass: password
-        });
-    }
+  static async setPhone(phone) {
+    return RestApi.post('Ls/set/phone', {
+      value: phone,
+    });
+  }
 
-    static async logout() {
-        // @todo: GET для логаута?
-        return RestApi.get('AuthService/logout');
-    }
+  static async setEmail(email) {
+    return RestApi.post('Ls/set/email', {
+      value: email,
+    });
+  }
 
-    static async getAccount() {
-        return RestApi.get('Ls/info');
-    }
+  static async setMeter(meterId, scaleId, value) {
+    return RestApi.post('Meter/set', {
+      meterId,
+      scaleId,
+      value,
+    });
+  }
 
-    static async getMeters() {
-        return RestApi.get('Meter/info');
-    }
+  static async getAccrualYears() {
+    return RestApi.get('ZKU/years');
+  }
 
-    static async setPhone(phone) {
-        return RestApi.post('Ls/set/phone', {
-            value: phone
-        });
-    }
+  static async getAccrualPeriodsForYear(year) {
+    return RestApi.post('ZKU/periods', {
+      year,
+    });
+  }
 
-    static async setEmail(email) {
-        return RestApi.post('Ls/set/email', {
-            value: email
-        });
-    }
-
-    static async setMeter(meterId, scaleId, value) {
-        return RestApi.post('Meter/set', {
-            meterId,
-            scaleId,
-            value
-        });
-    }
-
-    static async getAccrualYears() {
-        return RestApi.get('ZKU/years');
-    }
-
-    static async getAccrualPeriodsForYear(year) {
-        return RestApi.post('ZKU/periods', {
-            year
-        });
-    }
-
-    static async getExtendAccuralInfoForYearPeriod(year, period) {
-        return RestApi.post('ZKU/period', {
-            year,
-            period
-        });
-    }
-
+  static async getExtendAccuralInfoForYearPeriod(year, period) {
+    return RestApi.post('ZKU/period', {
+      year,
+      period,
+    });
+  }
 }

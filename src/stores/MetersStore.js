@@ -3,32 +3,35 @@ import { observable, action } from 'mobx';
 import { RestApi } from '../utils/api';
 
 export default class MetersStore {
+  @observable items = [];
 
-    @observable items = [];
+  constructor() {
+    this.api = RestApi;
+  }
 
-    async load() {
-        let { meters } = await RestApi.getMeters();
+  async load() {
+    const { meters } = await this.api.getMeters();
 
-        this.set(meters);
-    }
+    this.set(meters);
+  }
 
-    @action set(items) {
-        this.items = items.map(meter => ({
-                ...meter,
-                id: +meter.id,
-                scales: meter.scales.map(scale => ({
-                    ...scale,
-                    id: +scale.id
-                }))
-            }));
-    }
+  @action set(items) {
+    this.items = items.map(meter => ({
+      ...meter,
+      id: +meter.id,
+      scales: meter.scales.map(scale => ({
+        ...scale,
+        id: +scale.id,
+      })),
+    }));
+  }
 
-    @action async update(data) {
-        return RestApi.setMeter(data.meterId, data.scaleId, data.value);
-    }
+  @action
+  async update({ meterId, scaleId, value }) {
+    return this.api.setMeter(meterId, scaleId, value);
+  }
 
-    @action reset() {
-        this.items = [];
-    }
-
+  @action reset() {
+    this.items = [];
+  }
 }

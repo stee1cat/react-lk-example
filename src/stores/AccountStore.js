@@ -3,47 +3,48 @@ import { observable, action } from 'mobx';
 import { RestApi } from '../utils/api';
 
 export default class AccountStore {
+  @observable info;
 
-    @observable info;
+  @action setInfo(info) {
+    this.info = info;
+  }
 
-    @action setInfo(info) {
-        this.info = info;
-    }
+  @action
+  async updatePhone(phone) {
+    await RestApi.setPhone(phone);
 
-    @action async updatePhone(phone) {
-        await RestApi.setPhone(phone);
+    this.setInfo({
+      ...this.info,
+      personalData: {
+        ...this.info.personalData,
+        phone,
+      },
+    });
+  }
 
-        this.setInfo({
-            ...this.info,
-            personalData: {
-                ...this.info.personalData,
-                phone
-            }
-        });
-    }
+  @action
+  async updateEmail(email) {
+    await RestApi.setEmail(email);
 
-    @action async updateEmail(email) {
-        await RestApi.setEmail(email);
+    this.setInfo({
+      ...this.info,
+      personalData: {
+        ...this.info.personalData,
+        email,
+      },
+    });
+  }
 
-        this.setInfo({
-            ...this.info,
-            personalData: {
-                ...this.info.personalData,
-                email
-            }
-        });
-    }
+  @action
+  async loadInfo() {
+    let account = await RestApi.getAccount();
 
-    @action async loadInfo() {
-        let account = await RestApi.getAccount();
+    this.setInfo(account);
 
-        this.setInfo(account);
+    return account;
+  }
 
-        return account;
-    }
-
-    reset() {
-        this.info = null;
-    }
-
+  reset() {
+    this.info = null;
+  }
 }

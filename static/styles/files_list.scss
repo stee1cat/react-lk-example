@@ -1,0 +1,69 @@
+@import "variables";
+
+.files_list{
+  padding: 20px 0;
+
+  & > .title{
+    text-transform: uppercase;
+    color: $font_color_light;
+    font-weight: 600;
+    text-align: left;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  & > .list{
+    width: 100%;
+
+    & > .file{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 10px 0;
+      @extend .border_bottom_divider;
+
+      &:last-child{
+        border-bottom: none;
+      }
+
+      & > *{
+        flex-shrink: 0;
+      }
+
+      & > .icon{
+        width: 20px;
+        height: 20px;
+        margin-right: 20px;
+        background-position: left center;
+        background-size: 80%;
+        background-repeat: no-repeat;
+
+        @each $n in s_file, s_img {
+          &.#{$n} {
+            background-image: url('../images/20/#{$n}.png');
+          }
+        }
+      }
+
+      & > .name{
+        color: #354052;
+        flex-grow: 1;
+        text-overflow: ellipsis;
+        width: 224px;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      & > .remove_button{
+        width: 20px;
+        height: 20px;
+        margin-left: 20px;
+        background-position: center;
+        background-size: 50%;
+        background-repeat: no-repeat;
+        background-image: url('../images/20/b_remove.png');
+      }
+
+    }
+  }
+}
